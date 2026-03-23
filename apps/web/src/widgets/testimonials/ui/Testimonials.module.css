@@ -1,0 +1,318 @@
+.wrapper {
+  background-color: #0e1118;
+  padding: 100px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.title {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: clamp(2rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #8b96b0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Свайп-карусель */
+.carouselContainer {
+  margin-bottom: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.carouselContainer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -20px;
+  height: 100%;
+  width: 60px;
+  background: linear-gradient(to right, transparent, #0e1118);
+  pointer-events: none;
+}
+
+.carouselContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -20px;
+  height: 100%;
+  width: 60px;
+  background: linear-gradient(to left, transparent, #0e1118);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.navBtn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  position: absolute;
+  z-index: 20;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.navBtn:hover {
+  background: #a78bfa;
+  border-color: #a78bfa;
+  color: #0e1118;
+  transform: scale(1.1);
+}
+
+.navBtnLeft {
+  left: -24px;
+}
+
+.navBtnRight {
+  right: -24px;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  gap: 24px;
+  padding: 10px 0 24px 0;
+  width: 100%;
+}
+
+.card {
+  min-width: 380px;
+  width: 380px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 1.05rem;
+  margin-bottom: 2px;
+}
+
+.childInfo {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.stars {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.reviewText {
+  color: #334155;
+  font-size: 1rem;
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tagGroup, .tagTrack {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 40px;
+}
+
+.tagGroup {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.tagTrack {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+/* Chats Section - Фейковые скрины переписок */
+.chatsSection {
+  text-align: center;
+}
+
+.chatsTitle {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 40px;
+}
+
+.chatsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.chatWindow {
+  background: #f8fafc;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  text-align: left;
+}
+
+.chatHeader {
+  background: #ffffff;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.chatAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.chatName {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+
+.chatStatus {
+  font-size: 0.75rem;
+  color: #10b981;
+}
+
+.chatBody {
+  padding: 24px 20px;
+  background: #e2e8f0; /* Стиль фона Telegram/WA */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23cbd5e1' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.message {
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  position: relative;
+  max-width: 85%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.msgUser {
+  background: #dcf8c6; /* Цвет сообщения пользователя (WA) */
+  color: #000;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.msgAdmin {
+  background: #ffffff;
+  color: #000;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.msgTime {
+  font-size: 0.65rem;
+  color: #64748b;
+  float: right;
+  margin-top: 8px;
+  margin-left: 12px;
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+  .chatsGrid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    min-width: 300px;
+    width: 300px;
+    padding: 24px;
+  }
+  .carouselContainer::after {
+    display: none;
+  }
+}

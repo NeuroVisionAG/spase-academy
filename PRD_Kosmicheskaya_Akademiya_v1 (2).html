@@ -1,0 +1,2259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRD · Космическая Академия · v1.0 · 2026</title>
+<style>
+:root{
+  --bg:#0e1118;--bg2:#151923;--bg3:#1c2333;--bg4:#232d42;
+  --text:#dde3f0;--text2:#8b96b0;--text3:#4a5570;
+  --teal:#2dd4bf;--teal-d:rgba(45,212,191,.12);
+  --orange:#fb923c;--orange-d:rgba(251,146,60,.12);
+  --purple:#a78bfa;--purple-d:rgba(167,139,250,.12);
+  --green:#4ade80;--green-d:rgba(74,222,128,.1);
+  --red:#f87171;--red-d:rgba(248,113,113,.1);
+  --gold:#fbbf24;--gold-d:rgba(251,191,36,.1);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+  --r:8px;--rl:14px;
+  --font:'Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;font-size:14px}
+a{color:var(--teal);text-decoration:none}
+
+/* Layout */
+.sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--bg2);border-right:.5px solid var(--border);overflow-y:auto;z-index:100;padding:0 0 40px}
+.main{margin-left:260px;padding:40px 48px 80px;max-width:1100px}
+@media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:24px 16px 60px}}
+
+/* Sidebar */
+.sb-logo{padding:20px 18px 14px;border-bottom:.5px solid var(--border)}
+.sb-logo h2{font-size:13px;font-weight:600;color:var(--text)}
+.sb-logo p{font-size:10px;color:var(--text3);margin-top:2px}
+.sb-market-tabs{display:flex;gap:0;border-bottom:.5px solid var(--border)}
+.sb-mtab{flex:1;padding:9px 8px;font-size:11px;font-weight:600;text-align:center;cursor:pointer;border:none;background:none;color:var(--text3);transition:all .15s;font-family:var(--font)}
+.sb-mtab.active-ru{color:var(--orange);background:var(--orange-d)}
+.sb-mtab.active-kz{color:var(--teal);background:var(--teal-d)}
+.sb-section{padding:6px 0}
+.sb-section-title{padding:8px 18px 4px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3)}
+.sb-link{display:block;padding:6px 18px;font-size:12px;color:var(--text2);cursor:pointer;transition:all .12s;border-left:2px solid transparent}
+.sb-link:hover{color:var(--text);background:var(--bg3)}
+.sb-link.active{color:var(--text);border-left-color:var(--orange);background:var(--bg3)}
+.sb-link.active-kz-nav{color:var(--text);border-left-color:var(--teal);background:var(--bg3)}
+.sb-sub{padding:4px 18px 4px 30px;font-size:11px;color:var(--text3);cursor:pointer;transition:all .12s}
+.sb-sub:hover{color:var(--text2)}
+
+/* Page header */
+.doc-header{margin-bottom:36px;padding-bottom:24px;border-bottom:.5px solid var(--border)}
+.doc-version{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:10px}
+.doc-header h1{font-size:26px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.doc-header p{font-size:14px;color:var(--text2);max-width:700px;line-height:1.7}
+.meta-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.mc{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;border:.5px solid var(--border2)}
+
+/* Section */
+.section{margin-bottom:48px}
+.section-header{margin-bottom:20px}
+.section-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:6px}
+.section-header h2{font-size:19px;font-weight:600;color:var(--text)}
+.section-header p{font-size:13px;color:var(--text2);margin-top:6px;max-width:720px}
+
+/* Market panel */
+.market-panel{display:none}
+.market-panel.active{display:block}
+
+/* Block card */
+.block-card{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--rl);margin-bottom:8px;overflow:hidden;scroll-margin-top:20px}
+.section{margin-bottom:48px;scroll-margin-top:20px}
+.block-card-head{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none}
+.block-card-head:hover{background:var(--bg3)}
+.bn{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.block-title-wrap{flex:1}
+.block-title{font-size:14px;font-weight:600;color:var(--text)}
+.block-subtitle{font-size:11px;color:var(--text3);margin-top:2px}
+.btags{display:flex;gap:5px;flex-wrap:wrap;flex-shrink:0}
+.btag{padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600}
+.t-crit{background:var(--red-d);color:var(--red)}
+.t-key{background:var(--green-d);color:var(--green)}
+.t-nav{background:var(--purple-d);color:var(--purple)}
+.t-sup{background:var(--gold-d);color:var(--gold)}
+.t-lead{background:var(--teal-d);color:var(--teal)}
+.bchev{font-size:10px;color:var(--text3);transition:transform .18s;flex-shrink:0}
+.block-body{display:none;border-top:.5px solid var(--border)}
+.block-body.open{display:block}
+
+/* Block body tabs */
+.bb-tabs{display:flex;border-bottom:.5px solid var(--border);background:var(--bg3)}
+.bb-tab{padding:9px 16px;font-size:11px;font-weight:600;cursor:pointer;border:none;background:none;color:var(--text3);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--font)}
+.bb-tab.active{color:var(--text);border-bottom-color:var(--orange)}
+.bb-tab.active-kz{color:var(--text);border-bottom-color:var(--teal)}
+.bb-content{padding:18px 20px;display:none}
+.bb-content.active{display:block}
+
+/* Content elements */
+.field{margin-bottom:16px}
+.field-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:6px}
+.field-text{font-size:13px;color:var(--text2);line-height:1.7}
+.field-text strong{color:var(--text);font-weight:600}
+.copy-box{background:var(--bg3);border:.5px solid var(--border2);border-radius:var(--r);padding:14px 16px;margin-top:6px;position:relative}
+.copy-box .cb-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:8px}
+.copy-box .h1-text{font-size:18px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:8px}
+.copy-box .h2-text{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px}
+.copy-box .body-text{font-size:13px;color:var(--text2);line-height:1.65}
+.copy-box .cta-text{display:inline-block;margin-top:10px;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;background:var(--orange);color:#fff}
+.copy-box .cta-sec{display:inline-block;margin-top:10px;margin-left:8px;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;border:.5px solid var(--border2);color:var(--text)}
+.copy-box.kz-box{border-color:rgba(45,212,191,.25)}
+.pain-row{display:grid;grid-template-columns:1fr 1fr;gap:0;border:.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:6px}
+.pain-cell{padding:10px 12px;font-size:12px;line-height:1.55}
+.pain-cell:first-child{background:var(--red-d);border-right:.5px solid var(--border);color:var(--text2)}
+.pain-cell:last-child{background:var(--green-d);color:var(--text)}
+.pain-header{display:grid;grid-template-columns:1fr 1fr;margin-bottom:4px}
+.ph-cell{padding:3px 12px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.ph-cell:first-child{color:var(--red)}
+.ph-cell:last-child{color:var(--green)}
+.char-ref{background:var(--bg4);border:.5px solid var(--border);border-radius:var(--r);padding:12px 14px;display:flex;align-items:flex-start;gap:10px;margin-top:6px}
+.char-emoji{font-size:28px;flex-shrink:0}
+.char-info{flex:1}
+.char-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+.char-desc{font-size:11px;color:var(--text2);line-height:1.55}
+.spec-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.spec{padding:3px 8px;border-radius:4px;font-size:10px;font-weight:500;background:var(--bg3);color:var(--text2);border:.5px solid var(--border)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:700px){.info-grid{grid-template-columns:1fr}.pain-row{grid-template-columns:1fr}}
+.ig-card{background:var(--bg3);border:.5px solid var(--border);border-radius:var(--r);padding:12px 14px}
+.ig-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:6px}
+.ig-text{font-size:12px;color:var(--text2);line-height:1.55}
+.ul-list{list-style:none;padding:0}
+.ul-list li{font-size:12px;color:var(--text2);padding:3px 0 3px 14px;position:relative;line-height:1.5}
+.ul-list li::before{content:'—';position:absolute;left:0;color:var(--text3)}
+.note-box{background:var(--purple-d);border:.5px solid rgba(167,139,250,.25);border-radius:var(--r);padding:12px 14px;margin-top:10px}
+.note-box p{font-size:12px;color:var(--text2);line-height:1.6}
+.note-box strong{color:var(--purple)}
+.diff-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;background:var(--teal-d);color:var(--teal);border:.5px solid rgba(45,212,191,.25);margin-bottom:8px}
+.ru-only{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;background:var(--orange-d);color:var(--orange);border:.5px solid rgba(251,146,60,.25);margin-bottom:8px}
+.section-divider{height:.5px;background:var(--border);margin:32px 0}
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:700px){.pillars-grid{grid-template-columns:1fr}}
+.pillar-card{background:var(--bg3);border:.5px solid var(--border);border-radius:var(--r);padding:12px}
+.pillar-num{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:4px}
+.pillar-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px}
+.pillar-time{font-size:10px;color:var(--teal);margin-bottom:6px}
+.pillar-desc{font-size:11px;color:var(--text2);line-height:1.5}
+.level-intro{background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);border:.5px solid var(--border2);border-radius:var(--rl);padding:20px 22px;margin-bottom:20px}
+.level-intro h3{font-size:14px;font-weight:600;margin-bottom:8px}
+.level-intro p{font-size:13px;color:var(--text2);line-height:1.65}
+.format-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:800px){.format-grid{grid-template-columns:repeat(2,1fr)}}
+.format-card{background:var(--bg3);border:.5px solid var(--border);border-radius:var(--r);padding:12px}
+.format-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px}
+.format-price{font-size:13px;font-weight:700;color:var(--orange);margin-bottom:6px}
+.format-desc{font-size:11px;color:var(--text2);line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sb-logo">
+    <h2>🚀 Космическая Академия</h2>
+    <p>PRD v1.0 · Март 2026</p>
+  </div>
+  <div class="sb-market-tabs">
+    <button class="sb-mtab active-ru" onclick="switchMarket('ru',this)">🇷🇺 Россия</button>
+    <button class="sb-mtab" onclick="switchMarket('kz',this)">🇰🇿 Казахстан</button>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-title">Общее</div>
+    <div class="sb-link active" onclick="scrollToBlock('overview')">Обзор проекта</div>
+    <div class="sb-link" onclick="scrollToBlock('characters')">Персонажи</div>
+    <div class="sb-link" onclick="scrollToBlock('design-system')">Дизайн-система</div>
+    <div class="sb-link" onclick="scrollToBlock('funnel')">Воронка</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-title">Уровень 1 — Главная</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-header')">01 Шапка</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-hero')">02 Hero-блок</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-why')">03 Почему сейчас</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-utp')">04 УТП / Что иначе</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-portals')">05 Три пути</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-gallery')">06 Галерея работ</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-team')">07 Командование</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-formats')">08 Форматы / цены</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-quiz')">09 Квиз</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-reviews')">10 Отзывы</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-faq')">11 FAQ</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-cta')">12 Финальный CTA</div>
+    <div class="sb-link" onclick="scrollToBlock('l1-footer')">13 Футер</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-title">Уровень 2 — Группы</div>
+    <div class="sb-link" onclick="scrollToBlock('l2-hero')">01 Hero группы</div>
+    <div class="sb-link" onclick="scrollToBlock('l2-who')">02 Для кого</div>
+    <div class="sb-link" onclick="scrollToBlock('l2-directions')">03 Направления</div>
+    <div class="sb-link" onclick="scrollToBlock('l2-skills')">04 Навыки после</div>
+    <div class="sb-link" onclick="scrollToBlock('l2-works')">05 Работы группы</div>
+    <div class="sb-link" onclick="scrollToBlock('l2-teacher')">06 Преподаватель</div>
+    <div class="sb-link" onclick="scrollToBlock('l2-formats2')">07 Форматы детально</div>
+    <div class="sb-link" onclick="scrollToBlock('l2-safety')">08 Безопасность</div>
+    <div class="sb-link" onclick="scrollToBlock('l2-reviews2')">09 Отзывы</div>
+    <div class="sb-link" onclick="scrollToBlock('l2-cta2')">10 CTA выбор</div>
+    <div class="sb-link" onclick="scrollToBlock('l2-faq2')">11 FAQ группы</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-title">Уровень 3 — Курс</div>
+    <div class="sb-link" onclick="scrollToBlock('l3-hero')">01 Hero курса</div>
+    <div class="sb-link" onclick="scrollToBlock('l3-product')">02 Финальный продукт</div>
+    <div class="sb-link" onclick="scrollToBlock('l3-program')">03 Программа / миссии</div>
+    <div class="sb-link" onclick="scrollToBlock('l3-pillars')">04 Шаблон урока</div>
+    <div class="sb-link" onclick="scrollToBlock('l3-teacher2')">05 Преподаватель</div>
+    <div class="sb-link" onclick="scrollToBlock('l3-pricing')">06 Тарифы</div>
+    <div class="sb-link" onclick="scrollToBlock('l3-form')">07 Форма записи</div>
+    <div class="sb-link" onclick="scrollToBlock('l3-guarantee')">08 Гарантии</div>
+    <div class="sb-link" onclick="scrollToBlock('l3-reviews3')">09 Отзывы курса</div>
+    <div class="sb-link" onclick="scrollToBlock('l3-faq3')">10 FAQ курса</div>
+    <div class="sb-link" onclick="scrollToBlock('l3-finalcta')">11 Финальный CTA</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-title">Казахстанский рынок</div>
+    <div class="sb-link" onclick="scrollToBlock('kz-diff')">Отличия KZ от RU</div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- Market panels wrapper -->
+<div id="panel-ru" class="market-panel active">
+
+<!-- ===== OVERVIEW ===== -->
+<div id="overview" class="section doc-header">
+  <div class="doc-version">PRD · v1.0 · Космическая Академия · Март 2026</div>
+  <h1>Product Requirements Document</h1>
+  <p>Полное описание структуры платформы для передачи в разработку. Включает поблочную спецификацию для трёх уровней воронки, варианты текстов для каждого блока, визуальные требования, поведение UI и маркетинговые обоснования.</p>
+  <div class="meta-chips">
+    <span class="mc" style="color:var(--orange);border-color:rgba(251,146,60,.3)">🇷🇺 Россия</span>
+    <span class="mc" style="color:var(--teal);border-color:rgba(45,212,191,.3)">🇰🇿 Казахстан</span>
+    <span class="mc" style="color:var(--green);border-color:rgba(74,222,128,.2)">3 уровня воронки</span>
+    <span class="mc" style="color:var(--purple);border-color:rgba(167,139,250,.2)">3 возрастные группы</span>
+    <span class="mc" style="color:var(--gold);border-color:rgba(251,191,36,.2)">2 направления обучения</span>
+    <span class="mc">Актуально: март 2026</span>
+  </div>
+</div>
+
+<!-- ===== CHARACTERS ===== -->
+<div id="characters" class="section">
+  <div class="section-header">
+    <div class="section-label">Визуальная система</div>
+    <h2>Персонажи Академии</h2>
+    <p>5 персонажей закреплены за возрастными группами и направлениями. Используются как иллюстративные герои Hero-блоков, элементы навигации и маскоты внутри платформы.</p>
+  </div>
+
+  <div class="info-grid" style="grid-template-columns:1fr 1fr 1fr;gap:10px">
+    <div class="char-ref" style="flex-direction:column">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#2dd4bf,#fb923c);display:flex;align-items:center;justify-content:center;font-size:22px">👦</div>
+        <div>
+          <div class="char-name" style="font-size:14px">ЛЕО</div>
+          <div class="char-desc">Кадет Академии</div>
+        </div>
+      </div>
+      <div class="char-desc">Рыжие кудри, бирюзово-оранжевый костюм. Позитивный, любопытный. Указывает пальцем — «смотри, что можно создать!»</div>
+      <div class="spec-row">
+        <span class="spec">Кадеты 7–9</span>
+        <span class="spec">Hero L1</span>
+        <span class="spec">Портал группы</span>
+      </div>
+    </div>
+    <div class="char-ref" style="flex-direction:column">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#1e3a5f,#fb923c);display:flex;align-items:center;justify-content:center;font-size:22px">🧑</div>
+        <div>
+          <div class="char-name" style="font-size:14px">АРЛО</div>
+          <div class="char-desc">Архитектор Академии</div>
+        </div>
+      </div>
+      <div class="char-desc">Тёмные волосы с бирюзовым, тёмно-синий/оранжевый костюм, датапад и ИИ-компаньон. Серьёзный, технологичный.</div>
+      <div class="spec-row">
+        <span class="spec">Команда 14+</span>
+        <span class="spec">Вайб-кодинг</span>
+        <span class="spec">Портал группы</span>
+      </div>
+    </div>
+    <div class="char-ref" style="flex-direction:column">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#4ade80);display:flex;align-items:center;justify-content:center;font-size:22px">👧</div>
+        <div>
+          <div class="char-name" style="font-size:14px">АУРИ / ЗАРА / ЛИНА</div>
+          <div class="char-desc">Стажёры Академии</div>
+        </div>
+      </div>
+      <div class="char-desc">Три версии: блондинка (Аури), темнокожая с косами (Зара), азиатка с тёмными волосами (Лина). Фиолетово-зелёный костюм. Используются для разных аудиторий и рынков.</div>
+      <div class="spec-row">
+        <span class="spec">Стажёры 10–13</span>
+        <span class="spec">Нейрокреатив</span>
+        <span class="spec">KZ-рынок: Лина</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box" style="margin-top:12px">
+    <p><strong>Распределение по рынкам:</strong> Для российского рынка в Hero и визуалах используются Лео, Аури, Арло. Для казахстанского — Лео, Лина (азиатская внешность соответствует казахстанской аудитории), Арло. Зара задействована на обоих рынках для демонстрации инклюзивности.</p>
+  </div>
+</div>
+
+<!-- ===== DESIGN SYSTEM ===== -->
+<div id="design-system" class="section">
+  <div class="section-header">
+    <div class="section-label">Визуальная система</div>
+    <h2>Дизайн-система и стиль</h2>
+  </div>
+  <div class="info-grid">
+    <div class="ig-card">
+      <div class="ig-label">Цветовая палитра</div>
+      <div class="ig-text">
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px">
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;border-radius:4px;background:#1a1e35;border:.5px solid var(--border2)"></div><span style="font-size:11px;color:var(--text2)">#1A1E35 — Космический фон (основной)</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;border-radius:4px;background:#2dd4bf"></div><span style="font-size:11px;color:var(--text2)">#2DD4BF — Тил/бирюза (Кадеты, акцент)</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;border-radius:4px;background:#fb923c"></div><span style="font-size:11px;color:var(--text2)">#FB923C — Оранжевый (Лео, CTA)</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;border-radius:4px;background:#7c3aed"></div><span style="font-size:11px;color:var(--text2)">#7C3AED — Фиолетовый (Стажёры, девочки)</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;border-radius:4px;background:#1e3a5f"></div><span style="font-size:11px;color:var(--text2)">#1E3A5F — Тёмно-синий (Арло, Команда)</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;border-radius:4px;background:#4ade80"></div><span style="font-size:11px;color:var(--text2)">#4ADE80 — Зелёный неон (детали костюмов)</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="ig-card">
+      <div class="ig-label">Типографика</div>
+      <ul class="ul-list" style="margin-top:4px">
+        <li>H1: Nunito / Unbounded, 700, 38–52px, светло-белый</li>
+        <li>H2: Nunito, 600, 24–32px</li>
+        <li>Body: Onest / Nunito, 400, 15–16px</li>
+        <li>Кнопки: 600, 15px, letter-spacing 0.02em</li>
+        <li>Подписи: 12px, text3 color</li>
+        <li>Минимальный размер текста для мобайла: 14px</li>
+      </ul>
+    </div>
+    <div class="ig-card">
+      <div class="ig-label">3D-стиль иллюстраций</div>
+      <ul class="ul-list" style="margin-top:4px">
+        <li>Cartoon-3D рендер (стиль Pixar/Big Hero)</li>
+        <li>Мягкое студийное освещение, без жёстких теней</li>
+        <li>Персонажи на нейтральном или космическом фоне</li>
+        <li>Частицы, звёзды, голограммы как декоративные элементы</li>
+        <li>Анимации: float (левитация), glow, sparkle</li>
+        <li>Все персонажи — один стиль и пропорции</li>
+      </ul>
+    </div>
+    <div class="ig-card">
+      <div class="ig-label">UI-компоненты</div>
+      <ul class="ul-list" style="margin-top:4px">
+        <li>Rounded corners: 12–16px для карточек, 8px для элементов</li>
+        <li>Border: 0.5px, rgba(255,255,255,0.1)</li>
+        <li>Кнопка Primary: оранжевый/бирюзовый fill, белый текст</li>
+        <li>Кнопка Secondary: transparent, border, белый текст</li>
+        <li>Badges: полупрозрачные pill-кнопки</li>
+        <li>Hover: scale(1.02) + glow-эффект</li>
+        <li>Анимация появления: fade-up 0.4s ease-out</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FUNNEL ===== -->
+<div id="funnel" class="section">
+  <div class="section-header">
+    <div class="section-label">Архитектура</div>
+    <h2>Воронка и структура сайта</h2>
+  </div>
+  <div class="level-intro">
+    <h3>Схема воронки (3 уровня)</h3>
+    <p>Уровень 1 → Уровень 2 (×3 группы) → Уровень 3 (×6 курсов). Всего: 1 + 3 + 6 = <strong>10 страниц</strong> на рынок. Плюс Thank You Page, страница «Все работы», About-страница = ~14 страниц на рынок, ~28 итого при раздельных доменах/поддоменах.</p>
+  </div>
+  <div class="info-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="ig-card" style="border-color:rgba(251,146,60,.3)">
+      <div class="ig-label" style="color:var(--orange)">Уровень 1 — Главная</div>
+      <div class="ig-text">1 страница. Холодная аудитория. Цель: заинтересовать → направить к выбору группы. Минимальная цель: захват контакта через квиз.</div>
+    </div>
+    <div class="ig-card" style="border-color:rgba(167,139,250,.3)">
+      <div class="ig-label" style="color:var(--purple)">Уровень 2 — Группы</div>
+      <div class="ig-text">3 страницы (Кадеты / Стажёры / Команда). Тёплая аудитория. Цель: убедить, что подходит → направить к выбору направления.</div>
+    </div>
+    <div class="ig-card" style="border-color:rgba(74,222,128,.3)">
+      <div class="ig-label" style="color:var(--green)">Уровень 3 — Курсы</div>
+      <div class="ig-text">6 страниц (3 группы × 2 направления). Горячая аудитория. Цель: закрыть все возражения → оплата / заявка.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+<!-- ============================================================ -->
+<!-- УРОВЕНЬ 1 -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">Уровень 1</div>
+    <h2>Главная страница</h2>
+    <p>Единая для всех групп и направлений. Холодная и тёплая аудитория. 13 блоков.</p>
+  </div>
+  <div class="level-intro">
+    <p><strong>Аудитория:</strong> родители, пришедшие из соцсетей, SEO, рекламы. Часть — уже в теме, часть — впервые. <strong>URL:</strong> / (корень домена). <strong>Текущий рынок:</strong> Россия — русский язык, все формулировки и триггеры для RU-аудитории.</p>
+  </div>
+
+  <!-- BLOCK 01: HEADER -->
+  <div id="l1-header" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--teal-d);color:var(--teal)">01</div>
+      <div class="block-title-wrap">
+        <div class="block-title">Шапка (Header)</div>
+        <div class="block-subtitle">Sticky навигация · Присутствует на всех страницах</div>
+      </div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1h-desc')">Описание</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1h-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1h-vis')">Визуал</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1h-tech')">Технические требования</button>
+      </div>
+      <div id="l1h-desc" class="bb-content active">
+        <div class="field"><div class="field-label">Назначение</div><div class="field-text">Постоянная навигация, доступная с любой точки страницы. Обеспечивает мгновенный доступ к главному CTA и контактам независимо от позиции скролла.</div></div>
+        <div class="field"><div class="field-label">Маркетинговое обоснование</div><div class="field-text">Sticky-позиция удерживает кнопку «Бесплатный урок» в зоне видимости 100% времени. Для холодного трафика из соцсетей наличие телефона/Telegram в шапке создаёт ощущение реальной компании. Разделение на роли через меню снижает когнитивную нагрузку.</div></div>
+        <div class="field"><div class="field-label">Состав элементов</div>
+          <ul class="ul-list">
+            <li>Логотип (текст + иконка ракеты/звезды) — ссылка на главную</li>
+            <li>Навигация: «Академия» / «Группы ▾» / «Курсы» / «О нас» / «Цены»</li>
+            <li>Выпадающее меню «Группы»: Кадеты 7–9 / Стажёры 10–13 / Команда 14+</li>
+            <li>Телефон 8-800-XXX-XX-XX (бесплатный)</li>
+            <li>Иконки: Telegram + WhatsApp (ссылки на чаты)</li>
+            <li>Кнопка Primary: «Бесплатный урок»</li>
+            <li>Кнопка Secondary: «Войти» (для действующих учеников)</li>
+          </ul>
+        </div>
+      </div>
+      <div id="l1h-copy" class="bb-content">
+        <div class="field"><div class="field-label">Пункты навигации</div>
+          <div class="copy-box">
+            <div class="cb-label">Навигация</div>
+            <div class="body-text">Академия · Группы · Курсы · О нас · Цены</div>
+            <div class="body-text" style="margin-top:8px;color:var(--text3)">Dropdown «Группы»: Кадеты (7–9 лет) · Стажёры (10–13 лет) · Команда (14+)</div>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">CTA в шапке</div>
+          <div class="copy-box">
+            <span class="cta-text">Бесплатный урок</span>
+            <span class="cta-sec">Войти</span>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">Слоган под логотипом (опционально)</div>
+          <div class="copy-box"><div class="body-text">Обучай ребёнка создавать с ИИ, а не зависеть от него</div></div>
+        </div>
+      </div>
+      <div id="l1h-vis" class="bb-content">
+        <div class="field"><div class="field-label">Описание визуала</div>
+          <div class="field-text">Высота 64–68px на десктопе, 56px на мобайле. Фон: полупрозрачный тёмно-космический (#0e1118, opacity 0.92) + backdrop-blur(12px). Логотип слева: иконка ракеты (24px, цвет var(--teal)) + текст «Космическая Академия» (Unbounded, 500, 15px). Навигация по центру или слева от CTA. Телефон серый (#8b96b0). CTA-кнопка: border-radius 8px, background gradient teal→orange, белый текст. Мобайл: только логотип + кнопка + бургер.</div>
+        </div>
+      </div>
+      <div id="l1h-tech" class="bb-content">
+        <ul class="ul-list">
+          <li>position: sticky; top: 0; z-index: 1000</li>
+          <li>Анимация появления: slideDown 0.3s при загрузке страницы</li>
+          <li>При скролле вниз >100px: добавляется border-bottom 0.5px</li>
+          <li>Выпадающее меню: hover (десктоп) / tap (мобайл), анимация fadeDown 0.2s</li>
+          <li>CTA «Бесплатный урок»: ведёт на якорь #quiz (квиз) на L1; на L3 — на #form</li>
+          <li>Мобайл <768px: бургер-меню, full-screen overlay с теми же пунктами</li>
+          <li>Telegram/WhatsApp: открываются в новой вкладке, deep link на чат поддержки</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 02: HERO -->
+  <div id="l1-hero" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--red-d);color:var(--red)">02</div>
+      <div class="block-title-wrap">
+        <div class="block-title">Hero-блок — первый экран</div>
+        <div class="block-subtitle">Главный конверсионный блок · 100vh · Персонаж Лео + порталы групп</div>
+      </div>
+      <div class="btags"><span class="btag t-crit">Критический</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1hero-desc')">Описание</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1hero-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1hero-vis')">Визуал</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1hero-tech')">Технические требования</button>
+      </div>
+      <div id="l1hero-desc" class="bb-content active">
+        <div class="field"><div class="field-label">Назначение</div><div class="field-text">Первый экран, который видят 100% посетителей. Задача — за 4–6 секунд ответить на вопрос «что это и зачем мне?» и направить к выбору возрастной группы.</div></div>
+        <div class="field"><div class="field-label">Структура блока</div>
+          <ul class="ul-list">
+            <li>Левая часть (60% ширины): H1 + подзаголовок + 2 CTA-кнопки + бейджи доверия</li>
+            <li>Правая часть (40%): 3D-персонаж Лео, левитирующий с анимацией</li>
+            <li>Нижняя часть: 3 карточки-портала по возрастным группам</li>
+            <li>Фон: анимированное звёздное небо, туманности (CSS particles или WebGL-легкий)</li>
+          </ul>
+        </div>
+        <div class="field"><div class="field-label">Бейджи доверия под CTA</div>
+          <div class="field-text">«150+ учеников» · «4 формата обучения» · «Первый урок бесплатно»</div>
+        </div>
+      </div>
+      <div id="l1hero-copy" class="bb-content">
+        <div class="field"><div class="field-label">Вариант A — для «Тревожных» (основной)</div>
+          <div class="copy-box">
+            <div class="cb-label">H1 · основной заголовок</div>
+            <div class="h1-text">Ваш ребёнок научится<br>управлять ИИ —<br>а не зависеть от него</div>
+            <div class="cb-label" style="margin-top:12px">Подзаголовок</div>
+            <div class="body-text">Космическая Академия — онлайн-школа, где дети от 7 до 17 лет создают настоящие продукты с помощью ИИ: книги, игры, сайты, мультики. Не просто учатся — делают.</div>
+            <span class="cta-text">Выбрать курс для ребёнка</span>
+            <span class="cta-sec">Смотреть бесплатный урок</span>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">Вариант B — для «Прагматиков»</div>
+          <div class="copy-box">
+            <div class="cb-label">H1</div>
+            <div class="h1-text">ИИ-навык, который<br>останется с ребёнком<br>навсегда</div>
+            <div class="cb-label" style="margin-top:12px">Подзаголовок</div>
+            <div class="body-text">Мы не учим конкретным нейросетям — мы учим принципам. После курса ребёнок создаёт реальный продукт от идеи до результата. Для детей 7–17 лет.</div>
+            <span class="cta-text">Узнать про курс</span>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">3 портала — тексты карточек</div>
+          <div class="copy-box">
+            <div class="cb-label">Карточка 1 · Кадеты</div>
+            <div class="h2-text">Кадеты · 7–9 лет</div>
+            <div class="body-text">«Творцы» — учатся оживлять идеи: пишут сказки, создают иллюстрации, делают открытки с помощью ИИ</div>
+            <div style="margin-top:8px;font-size:12px;color:var(--teal)">Узнать больше →</div>
+          </div>
+          <div class="copy-box" style="margin-top:8px">
+            <div class="cb-label">Карточка 2 · Стажёры</div>
+            <div class="h2-text">Стажёры · 10–13 лет</div>
+            <div class="body-text">«Исследователи» — используют ИИ для учёбы и хобби: создают презентации, исследования, творческие проекты</div>
+            <div style="margin-top:8px;font-size:12px;color:var(--purple)">Узнать больше →</div>
+          </div>
+          <div class="copy-box" style="margin-top:8px">
+            <div class="cb-label">Карточка 3 · Команда</div>
+            <div class="h2-text">Команда · 14+ лет</div>
+            <div class="body-text">«Архитекторы» — разрабатывают реальные продукты: игры, сайты, приложения с нуля до запуска</div>
+            <div style="margin-top:8px;font-size:12px;color:var(--orange)">Узнать больше →</div>
+          </div>
+        </div>
+      </div>
+      <div id="l1hero-vis" class="bb-content">
+        <div class="field"><div class="field-label">Визуальное описание</div>
+          <div class="field-text">Тёмный космический фон с анимированными звёздами (CSS keyframes или Lottie). Персонаж Лео справа — 3D-рендер, PNG с прозрачным фоном, анимация float (translateY ±12px, 3s ease-in-out, infinite). Фиолетово-голубые туманности в фоне — декоративный элемент CSS radial-gradient. Три портала снизу — горизонтальный ряд карточек: каждая с уникальным цветом (teal / purple / orange-dark), иконкой персонажа и hover-эффектом подъёма.</div>
+        </div>
+        <div class="char-ref">
+          <div class="char-emoji">🧑‍🚀</div>
+          <div>
+            <div class="char-name">Лео — основной герой Hero L1</div>
+            <div class="char-desc">Поза: указывает пальцем на заголовок или вверх. Файл: leo-hero-front.png, минимум 600×900px @2x. Анимация float на лендинге — CSS, не GIF (производительность).</div>
+          </div>
+        </div>
+      </div>
+      <div id="l1hero-tech" class="bb-content">
+        <ul class="ul-list">
+          <li>Высота: min-height: 100vh; padding-bottom: 80px</li>
+          <li>Фон-анимация: CSS particles или tsParticles (лёгкая библиотека, &lt;30KB gzip)</li>
+          <li>Персонаж: lazyload, WebP + PNG fallback, srcset для @2x</li>
+          <li>Порталы: display grid 3 columns; gap 16px; на мобайле — stack</li>
+          <li>CTA «Выбрать курс»: scroll to #portals (якорь на тот же блок порталов)</li>
+          <li>A/B тест: заголовок варианта A vs B; победитель через 2 недели по CTR на порталы</li>
+          <li>LCP оптимизация: Hero-персонаж — priority load, preconnect шрифты</li>
+          <li>Анимация появления: stagger — H1 0ms, подзаголовок 150ms, кнопки 300ms, персонаж 100ms</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 03: WHY NOW -->
+  <div id="l1-why" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--gold-d);color:var(--gold)">03</div>
+      <div class="block-title-wrap">
+        <div class="block-title">«Почему ИИ-образование нужно сейчас»</div>
+        <div class="block-subtitle">Актуализация проблемы · 4 тезиса · Нейтральный фон</div>
+      </div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1why-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1why-vis')">Визуал</button>
+      </div>
+      <div id="l1why-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок блока</div>
+          <div class="h2-text">Мир изменился. Образование — пока нет.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Тезис 1 · Иконка: 🤖</div>
+          <div class="h2-text">ИИ уже везде</div>
+          <div class="body-text">Нейросети используются в 70% современных профессий. Дети, которые умеют с ними работать, получают преимущество — уже сейчас, не через 10 лет.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Тезис 2 · Иконка: 🎮</div>
+          <div class="h2-text">Пользователь или создатель?</div>
+          <div class="body-text">Большинство детей уже «чатятся» с нейросетями. Но есть разница: пассивно использовать ИИ — или уметь строить с его помощью что-то настоящее.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Тезис 3 · Иконка: 🔧</div>
+          <div class="h2-text">Инструменты меняются — принципы остаются</div>
+          <div class="body-text">Мы не учим ChatGPT или MidJourney — они поменяются. Мы учим принципам нейро-инжиниринга: как думать задачами и строить продукты с любой нейросетью.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Тезис 4 · Иконка: 🛡️</div>
+          <div class="h2-text">Безопасно и под контролем</div>
+          <div class="body-text">Всё обучение — на закрытой платформе без рекламы, под руководством живых преподавателей. Родитель видит прогресс ребёнка в личном кабинете.</div>
+        </div>
+      </div>
+      <div id="l1why-vis" class="bb-content">
+        <div class="field-text">4 карточки в ряд (десктоп) или 2×2 (мобайл). Каждая: иконка 40px (emoji или SVG), заголовок 16px bold, текст 13px. Светлый или полупрозрачный фон карточек на тёмном фоне секции. Отступ секции: 80px top/bottom. Карточки появляются с анимацией stagger при входе в viewport (IntersectionObserver).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 04: UTP -->
+  <div id="l1-utp" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--purple-d);color:var(--purple)">04</div>
+      <div class="block-title-wrap">
+        <div class="block-title">«Что мы делаем иначе» — УТП</div>
+        <div class="block-subtitle">Два направления · Нейрокреатив vs Вайб-кодинг</div>
+      </div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1utp-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1utp-vis')">Визуал</button>
+      </div>
+      <div id="l1utp-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок секции</div>
+          <div class="h2-text">Мы не учим «пользоваться ChatGPT».<br>Мы учим создавать с ИИ.</div>
+          <div class="body-text" style="margin-top:8px">Два направления обучения — для разных интересов ребёнка. Оба заканчиваются реальным продуктом, которым можно гордиться.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Направление 1 · Нейрокреатив</div>
+          <div class="h2-text">✨ Нейрокреатив</div>
+          <div class="body-text"><strong>Для тех, кто любит придумывать, рисовать, рассказывать истории.</strong><br>Ребёнок создаёт с ИИ: иллюстрированные книги, сценарии, мультики, видео для соцсетей, открытки, комиксы, музыкальные клипы.</div>
+          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+            <span class="spec">Книга с картинками</span><span class="spec">Мультфильм</span><span class="spec">Видео для TikTok</span><span class="spec">Комикс</span><span class="spec">Музыкальный клип</span>
+          </div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Направление 2 · Вайб-кодинг</div>
+          <div class="h2-text">💻 Вайб-кодинг</div>
+          <div class="body-text"><strong>Для тех, кто хочет строить что-то, что работает.</strong><br>Ребёнок создаёт с ИИ: игры, сайты, мини-приложения — от идеи до запуска. Без скучного синтаксиса, с реальным результатом.</div>
+          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+            <span class="spec">Игра</span><span class="spec">Личный сайт</span><span class="spec">Telegram-бот</span><span class="spec">Мини-приложение</span>
+          </div>
+        </div>
+      </div>
+      <div id="l1utp-vis" class="bb-content">
+        <div class="field-text">Две большие карточки side-by-side (50%/50%). Нейрокреатив: фиолетовый градиент, иллюстрация с книгой и мультиком. Вайб-кодинг: синий градиент, иллюстрация с кодом и игрой. Hover: карточка «взлетает» (translateY -4px), усиливается glow. Под каждой — список примеров как pill-badges. Кнопка «Узнать подробнее» ведёт к блоку #portals.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 05: THREE PATHS -->
+  <div id="l1-portals" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--teal-d);color:var(--teal)">05</div>
+      <div class="block-title-wrap">
+        <div class="block-title">«Три пути» — выбор возрастной группы</div>
+        <div class="block-subtitle">Навигационный якорь · Переход на уровень 2 · ID: #portals</div>
+      </div>
+      <div class="btags"><span class="btag t-nav">Навигационный</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1port-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1port-vis')">Визуал</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1port-tech')">Технические требования</button>
+      </div>
+      <div id="l1port-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок блока</div>
+          <div class="h2-text">Выбери свой путь в Академии</div>
+          <div class="body-text">Три группы — три роли. Каждая со своим персонажем, задачами и финальным проектом.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Карточка 1 · Кадеты · Персонаж: Лео</div>
+          <div class="h2-text">🟦 Кадеты</div>
+          <div class="body-text"><strong>7–9 лет · «Творцы»</strong><br>Знакомятся с тем, что умеет ИИ. Учатся ставить задачи, оживлять картинки, писать сказки и создавать открытки с помощью нейросетей.</div>
+          <div style="margin-top:8px;font-size:13px;color:var(--teal);font-weight:600">Выбрать этот путь →</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Карточка 2 · Стажёры · Персонаж: Аури (RU) / Лина (KZ)</div>
+          <div class="h2-text">🟣 Стажёры</div>
+          <div class="body-text"><strong>10–13 лет · «Исследователи»</strong><br>Учатся использовать ИИ для учёбы и личных интересов. Создают презентации, исследования, творческие проекты — всё, что пригодится прямо сейчас.</div>
+          <div style="margin-top:8px;font-size:13px;color:var(--purple);font-weight:600">Выбрать этот путь →</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Карточка 3 · Команда · Персонаж: Арло</div>
+          <div class="h2-text">🟠 Команда</div>
+          <div class="body-text"><strong>14+ лет · «Архитекторы»</strong><br>Разрабатывают реальные продакт-проекты от идеи до готового продукта. Игры, сайты, боты — всё по-настоящему.</div>
+          <div style="margin-top:8px;font-size:13px;color:var(--orange);font-weight:600">Выбрать этот путь →</div>
+        </div>
+      </div>
+      <div id="l1port-vis" class="bb-content">
+        <div class="field-text">3 карточки в ряд, каждая ~320px высотой. У каждой свой цвет фона (teal/purple/orange-dark), персонаж (png, 200px), название группы, возраст, роль и 2–3 предложения. Hover: подъём + усиление свечения границ. Клик → переход на URL группы (/kadety, /stajery, /komanda). Анимация при входе в viewport: scale от 0.95 до 1, fade-in, stagger 100ms.</div>
+      </div>
+      <div id="l1port-tech" class="bb-content">
+        <ul class="ul-list">
+          <li>Ссылки: /kadety, /stajery, /komanda (уровень 2)</li>
+          <li>Каждая карточка — полностью кликабельна (cursor: pointer)</li>
+          <li>На мобайле: stack вертикально, каждая карточка 100% ширины</li>
+          <li>Персонажи: WebP + PNG fallback, lazyload кроме первой видимой</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 06: GALLERY -->
+  <div id="l1-gallery" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--green-d);color:var(--green)">06</div>
+      <div class="block-title-wrap">
+        <div class="block-title">«Что создадут ваши дети» — галерея работ</div>
+        <div class="block-subtitle">Образ результата · Карусель / мозаика</div>
+      </div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1gal-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1gal-vis')">Визуал</button>
+      </div>
+      <div id="l1gal-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Это создали дети на курсах Академии</div>
+          <div class="body-text">Каждый ученик уходит с готовым проектом. Не сертификатом — а реальной работой, которую можно показать, опубликовать и использовать.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Подписи к работам (шаблон)</div>
+          <div class="body-text"><strong>«Сказка о космическом котёнке»</strong><br>Иллюстрированная история, 12 страниц<br><span style="color:var(--text3)">Маша, 8 лет · Кадеты · Нейрокреатив</span></div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="body-text"><strong>«Игра-головоломка "Пиксельный мир"»</strong><br>Браузерная игра с 5 уровнями<br><span style="color:var(--text3)">Иван, 15 лет · Команда · Вайб-кодинг</span></div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="body-text"><strong>«Мой гайд по профессиям будущего»</strong><br>Интерактивная презентация, 20 слайдов<br><span style="color:var(--text3)">Алина, 11 лет · Стажёры · Нейрокреатив</span></div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Кнопка</div>
+          <span class="cta-sec">Смотреть все работы</span>
+        </div>
+      </div>
+      <div id="l1gal-vis" class="bb-content">
+        <div class="field-text">Мозаика или карусель (Swiper.js или CSS scroll snap). Миниатюры работ: 280×200px, border-radius 12px, hover — zoom 1.05 + overlay с именем/возрастом/типом. Под каждой: имя, возраст, тип курса. На мобайле — горизонтальный скролл. Кнопка «Все работы» ведёт на /works или modal overlay с расширенной галереей.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 07: TEAM -->
+  <div id="l1-team" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--purple-d);color:var(--purple)">07</div>
+      <div class="block-title-wrap">
+        <div class="block-title">«Командование Академии»</div>
+        <div class="block-subtitle">Краткое представление команды · Карусель 3–5 карточек</div>
+      </div>
+      <div class="btags"><span class="btag t-sup">Поддерживающий</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1team-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1team-vis')">Визуал</button>
+      </div>
+      <div id="l1team-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Познакомьтесь с командой Академии</div>
+          <div class="body-text">Живые педагоги, практики ИИ и методисты — не боты, не записанные видео. Каждое занятие ведёт реальный человек, который знает и любит своё дело.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Шаблон карточки — Адмирал</div>
+          <div class="h2-text">[Имя Фамилия]</div>
+          <div class="body-text"><strong>Адмирал Академии</strong><br>Технический директор и хранитель платформы. Обеспечивает бесперебойную работу всех систем Академии.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Шаблон — Вице-адмирал (×3)</div>
+          <div class="body-text"><strong>Вице-адмирал · Группа [название]</strong><br>Преподаватель и руководитель группы [Кадетов / Стажёров / Команды]. [1–2 строки о специализации и опыте].</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Шаблон — ЦУП</div>
+          <div class="body-text"><strong>Центр управления полётом · Разработка курсов</strong><br>Практики ИИ и специалисты по онлайн-обучению. Создают программы курсов, миссии и контент Академии.</div>
+        </div>
+      </div>
+      <div id="l1team-vis" class="bb-content">
+        <div class="field-text">5 карточек в ряд (десктоп) или карусель. Каждая: профессиональное фото 80×80px круглое, имя, звание (с тематической иконкой: ⚓ Адмирал, 🌟 Вице-адмирал, 🛸 ЦУП), 1 строка специализации. Hover: карточка поднимается, появляется 2-строчное описание. Ссылка «Вся команда» ведёт на /about или раскрывает полный блок.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 08: FORMATS -->
+  <div id="l1-formats" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--orange-d);color:var(--orange)">08</div>
+      <div class="block-title-wrap">
+        <div class="block-title">Форматы обучения и цены — обзор</div>
+        <div class="block-subtitle">4 формата · Ценовые якоря · Без скрытых условий</div>
+      </div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1fmt-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1fmt-vis')">Визуал</button>
+      </div>
+      <div id="l1fmt-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Начни так, как удобно тебе</div>
+          <div class="body-text">От бесплатного первого урока до персонального сопровождения — выбери формат, который подходит вашей семье.</div>
+        </div>
+        <div class="format-grid">
+          <div class="format-card">
+            <div class="format-name">🎁 Бесплатный урок</div>
+            <div class="format-price">0 ₽</div>
+            <div class="format-desc">Первое знакомство с Академией. Ребёнок попробует — и вы оба поймёте, подходит ли формат.</div>
+          </div>
+          <div class="format-card" style="border-color:rgba(251,146,60,.3)">
+            <div class="format-name">🚀 Пробный урок</div>
+            <div class="format-price">от 990 ₽</div>
+            <div class="format-desc">Полноценное занятие с преподавателем. Стоимость зачитывается в курс при покупке.</div>
+          </div>
+          <div class="format-card" style="border-color:rgba(45,212,191,.3)">
+            <div class="format-name">📚 Запись + консультации</div>
+            <div class="format-price">от 3 990 ₽/мес</div>
+            <div class="format-desc">Основной формат. Занятия в записи, консультации с педагогом, родительский кабинет.</div>
+          </div>
+          <div class="format-card">
+            <div class="format-name">👑 Персональный</div>
+            <div class="format-price">от 7 990 ₽/мес</div>
+            <div class="format-desc">Индивидуальные занятия 1-на-1 с педагогом. Максимальный результат в короткий срок.</div>
+          </div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Примечание под тарифами</div>
+          <div class="body-text">Стоимость пробного урока зачитывается в полную стоимость курса при покупке. Доступна рассрочка 0%.</div>
+        </div>
+      </div>
+      <div id="l1fmt-vis" class="bb-content">
+        <div class="field-text">4 карточки в ряд. Первая («Бесплатный») — акцентирована зелёным, самая заметная. Третья («Основной») — обводка var(--teal) + badge «Популярный». Цены крупно (18px, bold, цвет акцента). На мобайле — 2×2. Кнопка «Подробнее о форматах» ведёт к блоку тарифов на L3 или открывает modal.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 09: QUIZ -->
+  <div id="l1-quiz" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--teal-d);color:var(--teal)">09</div>
+      <div class="block-title-wrap">
+        <div class="block-title">Квиз «Найди курс для ребёнка»</div>
+        <div class="block-subtitle">Лид-магнит · 5 вопросов · Персональная рекомендация · ID: #quiz</div>
+      </div>
+      <div class="btags"><span class="btag t-lead">Лид-магнит</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1qz-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1qz-vis')">Визуал</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1qz-tech')">Технические требования</button>
+      </div>
+      <div id="l1qz-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок квиза</div>
+          <div class="h2-text">Какой курс подойдёт вашему ребёнку?</div>
+          <div class="body-text">Ответьте на 5 вопросов — получите персональную рекомендацию и программу курса на почту.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Вопрос 1</div>
+          <div class="h2-text">Сколько лет вашему ребёнку?</div>
+          <div class="body-text">Варианты: 7–9 лет · 10–13 лет · 14–17 лет</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Вопрос 2</div>
+          <div class="h2-text">Чем больше всего увлекается ребёнок?</div>
+          <div class="body-text">Варианты: Рисует / придумывает истории · Играет в видеоигры · Интересуется технологиями · Учится / исследует · Всего понемногу</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Вопрос 3</div>
+          <div class="h2-text">Что хотите получить от курса?</div>
+          <div class="body-text">Варианты: Творческий проект (книга, мультик) · Технический продукт (игра, сайт) · Помощь в учёбе · Ещё не знаю</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Вопрос 4</div>
+          <div class="h2-text">Есть ли у ребёнка опыт с нейросетями?</div>
+          <div class="body-text">Варианты: Никакого · Немного, пробовал · Использует регулярно</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Вопрос 5</div>
+          <div class="h2-text">Какой формат занятий удобнее?</div>
+          <div class="body-text">Варианты: Запись, смотрим когда удобно · Живые занятия с педагогом · Индивидуально · Пока не знаю</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Финальный экран — форма контакта</div>
+          <div class="h2-text">Для [Имя ребёнка] лет подходит:</div>
+          <div class="body-text"><strong>Группа Стажёры · Направление Нейрокреатив</strong><br>Получите полную программу курса и ответы на вопросы — наш куратор свяжется с вами в течение 15 минут.</div>
+          <div style="margin-top:12px">
+            <div style="font-size:12px;color:var(--text3);margin-bottom:6px">Поля формы:</div>
+            <div style="font-size:13px;color:var(--text2)">Ваше имя · Телефон (обязательно) · Email (опционально)</div>
+          </div>
+          <span class="cta-text">Получить рекомендацию</span>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Thank You экран (после отправки)</div>
+          <div class="body-text">🚀 Отлично! Куратор Академии свяжется с вами в ближайшие 15 минут. Пока ждёте — посмотрите примеры работ наших учеников.</div>
+          <span class="cta-sec">Смотреть работы</span>
+        </div>
+      </div>
+      <div id="l1qz-vis" class="bb-content">
+        <div class="field-text">Карточка квиза: max-width 640px, по центру. Прогресс-бар сверху (5 шагов). Каждый вопрос — большие кнопки с иконками (не радиокнопки). Анимация между вопросами: slideLeft 0.25s. Финальный экран: анимация confetti (CSS), персонаж Лео с поднятой рукой. Форма: 2–3 поля max, кнопка отправки оранжевая.</div>
+      </div>
+      <div id="l1qz-tech" class="bb-content">
+        <ul class="ul-list">
+          <li>Квиз — собственная JS-логика или готовый сервис (Marquiz, Typeform embed)</li>
+          <li>Результат определяется по матрице ответов (возраст × интерес × цель)</li>
+          <li>Данные отправляются в CRM (AmoCRM / Bitrix24) + Telegram-бот уведомление менеджеру</li>
+          <li>Email-автоответ с программой рекомендованного курса (PDF вложение)</li>
+          <li>ID: #quiz — якорь для CTA из шапки и Hero</li>
+          <li>Не закрывать страницу при отправке — Thank You показывается на том же экране</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 10: REVIEWS -->
+  <div id="l1-reviews" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--gold-d);color:var(--gold)">10</div>
+      <div class="block-title-wrap">
+        <div class="block-title">Отзывы</div>
+        <div class="block-subtitle">Карусель · Фото + текст + скриншоты переписок</div>
+      </div>
+      <div class="btags"><span class="btag t-sup">Поддерживающий</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1rev-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1rev-vis')">Визуал</button>
+      </div>
+      <div id="l1rev-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Что говорят родители и дети</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Шаблон карточки отзыва</div>
+          <div class="body-text"><strong>[Имя родителя], мама/папа [Имя ребёнка], [возраст] лет</strong><br>«[Текст отзыва — 2–4 предложения с конкретным результатом]»</div>
+          <div style="margin-top:8px;display:flex;gap:2px">★★★★★</div>
+          <div style="margin-top:4px;font-size:11px;color:var(--text3)">Группа [Кадеты/Стажёры/Команда] · Направление [Нейрокреатив/Вайб-кодинг]</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Пример заполненного отзыва (пилот)</div>
+          <div class="body-text"><strong>Анна Соколова, мама Миши, 9 лет</strong><br>«Мы переживали, что Миша просто будет сидеть в телефоне. Но он реально создал сказку с картинками! Теперь каждый вечер сам просит "Мам, давай я ещё поделаю". Результат мы увидели уже после третьего занятия.»</div>
+        </div>
+      </div>
+      <div id="l1rev-vis" class="bb-content">
+        <div class="field-text">Свайп-карусель (Swiper.js, loop: true). 3 карточки видно на десктопе, 1 на мобайле. Карточка: белый/светлый фон на тёмном фоне секции, фото родителя (аватар 48px), звёздный рейтинг, имя+дочь/сын+возраст, текст отзыва. Дополнительно: скриншоты переписок из Telegram/WhatsApp в отдельном ряду ниже (изображения с blur PII, кроме имён).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 11: FAQ -->
+  <div id="l1-faq" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--teal-d);color:var(--teal)">11</div>
+      <div class="block-title-wrap">
+        <div class="block-title">FAQ — ответы на возражения</div>
+        <div class="block-subtitle">Аккордеон · 8–10 вопросов · Группировка по темам</div>
+      </div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1faq-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1faq-vis')">Визуал</button>
+      </div>
+      <div id="l1faq-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Частые вопросы</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Группа 1 · Про обучение</div>
+          <div class="body-text"><strong>Не станет ли ребёнок ленивым из-за ИИ?</strong><br>Нет. Мы не учим просить ответы у нейросети — мы учим ребёнка быть постановщиком задачи. Каждый урок требует думать, формулировать, создавать. Это сложнее, чем просто делать домашнее задание.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="body-text"><strong>Мой ребёнок ничего не знает об ИИ. Это не помешает?</strong><br>Нет — это и есть наша аудитория. Мы начинаем с нуля. Кадеты (7–9 лет) знакомятся с ИИ впервые, и это нормально.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="body-text"><strong>Сколько времени в неделю занимает обучение?</strong><br>45–75 минут в неделю в основном формате. Занятие можно разбить на 3–5 дней по 15 минут каждый.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Группа 2 · Про безопасность</div>
+          <div class="body-text"><strong>Безопасна ли платформа для детей?</strong><br>Да. Закрытая платформа без рекламы и внешних ссылок. Каждый урок ведёт живой педагог. Pillar «Safety Shield» в каждом занятии — отдельный блок о безопасности в интернете.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="body-text"><strong>Как я вижу, что происходит на занятиях?</strong><br>В родительском кабинете доступны: прогресс по миссиям, выполненные задания, время занятий. Получаете уведомления в Telegram/WhatsApp.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Группа 3 · Про оплату</div>
+          <div class="body-text"><strong>Можно ли вернуть деньги, если не понравится?</strong><br>Да. Первый урок бесплатный. Пробный урок — платный, стоимость зачитывается в курс. Если решите не продолжать — никаких скрытых списаний.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="body-text"><strong>Что нужно для занятий?</strong><br>Компьютер, ноутбук или планшет с браузером и интернетом. Отдельного ПО устанавливать не нужно.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Ссылка в конце FAQ</div>
+          <div class="body-text">Не нашли ответ? → <strong>Напишите нам в Telegram</strong> — ответим в течение часа.</div>
+        </div>
+      </div>
+      <div id="l1faq-vis" class="bb-content">
+        <div class="field-text">Аккордеон. Вопрос: 14px bold, стрелка справа (rotate при открытии). Ответ: 13px, серый, появляется с анимацией slideDown. На десктопе — 2 колонки. Группировка вопросов по разделам с маленьким заголовком-разделителем. Кнопка-ссылка «Написать в Telegram» внизу.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 12: FINAL CTA -->
+  <div id="l1-cta" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--red-d);color:var(--red)">12</div>
+      <div class="block-title-wrap">
+        <div class="block-title">Финальный CTA-блок</div>
+        <div class="block-subtitle">Контрастный фон · Последний шанс конверсии</div>
+      </div>
+      <div class="btags"><span class="btag t-crit">Критический</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1fcta-copy')">Тексты RU</button>
+        <button class="bb-tab" onclick="bbTab(this,'l1fcta-vis')">Визуал</button>
+      </div>
+      <div id="l1fcta-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h1-text">Готовы начать<br>космическое путешествие?</div>
+          <div class="body-text" style="margin-top:10px">Первый урок — бесплатно. Без риска, без давления. Просто попробуйте вместе с ребёнком.</div>
+          <span class="cta-text">Начать бесплатно</span>
+          <span class="cta-sec">Выбрать группу</span>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Подпись под кнопками</div>
+          <div class="body-text" style="font-size:12px;color:var(--text3)">Уже 150+ учеников из России и Казахстана. Присоединяйтесь к Академии.</div>
+        </div>
+      </div>
+      <div id="l1fcta-vis" class="bb-content">
+        <div class="field-text">Полноширинный блок. Тёмно-космический фон с усиленными звёздами и туманностью. Текст по центру. Персонаж Лео (или все три персонажа вместе) справа или над текстом. Кнопки в ряд. Анимация: при входе в viewport — текст появляется с fade-up, персонаж — с scale от 0.8.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 13: FOOTER -->
+  <div id="l1-footer" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--border);color:var(--text2)">13</div>
+      <div class="block-title-wrap">
+        <div class="block-title">Футер</div>
+        <div class="block-subtitle">Реквизиты · Соцсети · Навигация · 152-ФЗ</div>
+      </div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l1foot-copy')">Тексты RU</button>
+      </div>
+      <div id="l1foot-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Колонки навигации</div>
+          <div class="body-text"><strong>Академия:</strong> О нас · Наша методика · Команда · Контакты<br><strong>Группы:</strong> Кадеты 7–9 · Стажёры 10–13 · Команда 14+<br><strong>Курсы:</strong> Нейрокреатив · Вайб-кодинг<br><strong>Поддержка:</strong> FAQ · Telegram · WhatsApp</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Юридический блок (мелким текстом)</div>
+          <div class="body-text">[Название юр. лица], ИНН [XXX], ОГРН [XXX]<br>Лицензия на образовательную деятельность: [номер]<br>© 2025 Космическая Академия. Все права защищены.<br><a>Политика конфиденциальности</a> · <a>Обработка персональных данных (152-ФЗ)</a> · <a>Оферта</a></div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Соцсети</div>
+          <div class="body-text">ВКонтакте · Telegram-канал · YouTube · Instagram*<br><span style="font-size:11px;color:var(--text3)">*Запрещённая в РФ организация — скрыть на RU-версии</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /level 1 section -->
+
+<div class="section-divider"></div>
+
+<!-- ============================================================ -->
+<!-- УРОВЕНЬ 2 -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">Уровень 2</div>
+    <h2>Страницы возрастных групп</h2>
+    <p>Три отдельных лендинга с единой структурой: /kadety · /stajery · /komanda. Тёплая аудитория. 11 блоков на каждой странице. Ниже — описание с вариантами текстов для всех трёх групп.</p>
+  </div>
+  <div class="level-intro">
+    <p><strong>Важно:</strong> каждая страница — самостоятельный лендинг. Общий шаблон структуры, но уникальный Hero, персонаж, цвет, тексты и примеры работ. Шапка и футер — единые с L1.</p>
+  </div>
+
+  <!-- L2 BLOCK 01: HERO GROUP -->
+  <div id="l2-hero" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--red-d);color:var(--red)">01</div>
+      <div class="block-title-wrap">
+        <div class="block-title">Hero группы — персонализированный первый экран</div>
+        <div class="block-subtitle">3 варианта: Кадеты / Стажёры / Команда</div>
+      </div>
+      <div class="btags"><span class="btag t-crit">Критический</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l2h-kadety')">Кадеты 7–9</button>
+        <button class="bb-tab" onclick="bbTab(this,'l2h-stajery')">Стажёры 10–13</button>
+        <button class="bb-tab" onclick="bbTab(this,'l2h-komanda')">Команда 14+</button>
+        <button class="bb-tab" onclick="bbTab(this,'l2h-vis')">Визуал</button>
+      </div>
+      <div id="l2h-kadety" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">H1 · Кадеты</div>
+          <div class="h1-text">Ваш ребёнок станет<br>Кадетом Академии —<br>Творцом с ИИ</div>
+          <div class="cb-label" style="margin-top:12px">Подзаголовок</div>
+          <div class="body-text">Для детей 7–9 лет. Лео и другие Кадеты учатся оживлять идеи: пишут сказки, создают иллюстрации, делают открытки и мультики с помощью нейросетей. Всё под руководством живого педагога.</div>
+          <span class="cta-text">Выбрать курс для Кадета</span>
+          <span class="cta-sec">Смотреть бесплатный урок</span>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Breadcrumb</div>
+          <div class="body-text">Академия → Кадеты (7–9 лет)</div>
+        </div>
+      </div>
+      <div id="l2h-stajery" class="bb-content">
+        <div class="copy-box">
+          <div class="cb-label">H1 · Стажёры</div>
+          <div class="h1-text">Стажёры Академии —<br>Исследователи,<br>которые создают</div>
+          <div class="cb-label" style="margin-top:12px">Подзаголовок</div>
+          <div class="body-text">Для детей 10–13 лет. Стажёры используют ИИ для учёбы и личных интересов: делают презентации, исследования, творческие проекты — то, что пригодится прямо сейчас и удивит одноклассников.</div>
+          <span class="cta-text">Выбрать курс для Стажёра</span>
+          <span class="cta-sec">Посмотреть программу</span>
+        </div>
+      </div>
+      <div id="l2h-komanda" class="bb-content">
+        <div class="copy-box">
+          <div class="cb-label">H1 · Команда</div>
+          <div class="h1-text">Архитекторы Академии —<br>строят настоящие<br>продукты с ИИ</div>
+          <div class="cb-label" style="margin-top:12px">Подзаголовок</div>
+          <div class="body-text">Для ребят 14 лет и старше. Команда разрабатывает реальные продакт-проекты: игры, сайты, приложения — от идеи до запуска. Без скучной теории. С результатом, который можно показать работодателю или опубликовать.</div>
+          <span class="cta-text">Выбрать курс для Команды</span>
+          <span class="cta-sec">Посмотреть проекты учеников</span>
+        </div>
+      </div>
+      <div id="l2h-vis" class="bb-content">
+        <div class="field-text">Каждая группа имеет уникальный цвет акцента и персонажа: Кадеты — бирюза + Лео, Стажёры — фиолетовый + Аури/Лина, Команда — тёмно-синий/оранжевый + Арло. Breadcrumb под шапкой. Высота Hero: min-height 90vh. Персонаж справа, крупнее чем на L1 (~500px высота). Кнопки: Primary (цвет группы) + Secondary (outline).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L2 BLOCK 02: WHO -->
+  <div id="l2-who" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--gold-d);color:var(--gold)">02</div>
+      <div class="block-title-wrap">
+        <div class="block-title">«Для кого эта группа»</div>
+        <div class="block-subtitle">Портрет ребёнка · Идентификация · «Тебе сюда, если...»</div>
+      </div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l2who-kadety')">Кадеты</button>
+        <button class="bb-tab" onclick="bbTab(this,'l2who-stajery')">Стажёры</button>
+        <button class="bb-tab" onclick="bbTab(this,'l2who-komanda')">Команда</button>
+      </div>
+      <div id="l2who-kadety" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Ваш ребёнок — будущий Кадет, если...</div>
+          <div class="body-text" style="margin-top:10px">
+            ✅ Ему 7, 8 или 9 лет<br>
+            ✅ Любит рисовать, придумывать истории, мастерить<br>
+            ✅ Уже слышал про нейросети или хочет узнать<br>
+            ✅ Умеет пользоваться планшетом или компьютером<br>
+            ✅ Вам важно, чтобы он не просто «сидел в экране», а создавал что-то своё
+          </div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Пояснение для родителей</div>
+          <div class="body-text">Кадеты не нуждаются в предыдущем опыте. Мы начинаем с самых основ — безопасно, весело и по-настоящему. Первое, что создаст ребёнок уже на третьем занятии — иллюстрированная история.</div>
+        </div>
+      </div>
+      <div id="l2who-stajery" class="bb-content">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Ваш ребёнок — Стажёр, если...</div>
+          <div class="body-text" style="margin-top:10px">
+            ✅ Ему 10–13 лет<br>
+            ✅ Хочет делать домашние задания быстрее и интереснее<br>
+            ✅ Увлекается хобби — музыкой, спортом, играми, наукой<br>
+            ✅ Хочет создать что-то крутое, чем можно похвастаться в классе<br>
+            ✅ Любопытный, активный, немного «не как все»
+          </div>
+        </div>
+      </div>
+      <div id="l2who-komanda" class="bb-content">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Ты — Архитектор Академии, если...</div>
+          <div class="body-text" style="margin-top:10px">
+            ✅ Тебе 14 лет и старше<br>
+            ✅ Хочешь создать что-то настоящее — не поделку, а реальный продукт<br>
+            ✅ Интересуешься технологиями, играми, дизайном, бизнесом<br>
+            ✅ Хочешь уметь то, чего не умеют твои сверстники<br>
+            ✅ Готов работать как в стартапе — с задачами и результатом
+          </div>
+          <div style="margin-top:8px;font-size:12px;color:var(--text3)">*На странице Команды обращение идёт напрямую к ребёнку (ты-форма), так как он сам принимает решение о записи вместе с родителем</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L2 BLOCK 03: DIRECTIONS -->
+  <div id="l2-directions" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--purple-d);color:var(--purple)">03</div>
+      <div class="block-title-wrap">
+        <div class="block-title">Два направления — детальные карточки</div>
+        <div class="block-subtitle">Нейрокреатив vs Вайб-кодинг · Переход на уровень 3</div>
+      </div>
+      <div class="btags"><span class="btag t-nav">Навигационный</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l2dir-kadety')">Кадеты</button>
+        <button class="bb-tab" onclick="bbTab(this,'l2dir-stajery')">Стажёры</button>
+        <button class="bb-tab" onclick="bbTab(this,'l2dir-komanda')">Команда</button>
+        <button class="bb-tab" onclick="bbTab(this,'l2dir-vis')">Визуал</button>
+      </div>
+      <div id="l2dir-kadety" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок блока</div>
+          <div class="h2-text">Два пути для Кадета — оба ведут к настоящему результату</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Нейрокреатив · Кадеты</div>
+          <div class="h2-text">✨ Нейрокреатив</div>
+          <div class="body-text"><strong>«Ребёнок-творец создаёт свой первый мультфильм»</strong><br>Ваш Кадет научится: придумывать историю, создавать персонажей с ИИ, озвучивать и оживлять — и сделает собственный короткий мультик или иллюстрированную книгу.</div>
+          <div style="margin-top:8px"><span class="spec">Сказка с картинками</span><span class="spec" style="margin-left:6px">Открытка</span><span class="spec" style="margin-left:6px">Мультфильм</span><span class="spec" style="margin-left:6px">Комикс</span></div>
+          <span class="cta-text" style="margin-top:12px;display:inline-block">Выбрать Нейрокреатив →</span>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Вайб-кодинг · Кадеты</div>
+          <div class="h2-text">💻 Вайб-кодинг</div>
+          <div class="body-text"><strong>«Ребёнок создаёт свою первую игру»</strong><br>Ваш Кадет научится создавать простые игры с помощью ИИ — без сложного кода. Результат: рабочая браузерная игра, в которую можно играть друзьям.</div>
+          <div style="margin-top:8px"><span class="spec">Браузерная игра</span><span class="spec" style="margin-left:6px">Простой сайт</span></div>
+          <span class="cta-text" style="margin-top:12px;display:inline-block;background:var(--purple)">Выбрать Вайб-кодинг →</span>
+        </div>
+      </div>
+      <div id="l2dir-stajery" class="bb-content">
+        <div class="copy-box">
+          <div class="cb-label">Нейрокреатив · Стажёры</div>
+          <div class="h2-text">✨ Нейрокреатив</div>
+          <div class="body-text"><strong>«Создай видео-проект, который посмотрят тысячи»</strong><br>Стажёр научится создавать: видео для соцсетей, промпт-гайды, тематические презентации, мини-документалки — всё с помощью ИИ-инструментов.</div>
+          <span class="cta-text" style="margin-top:12px;display:inline-block">Выбрать Нейрокреатив →</span>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Вайб-кодинг · Стажёры</div>
+          <div class="h2-text">💻 Вайб-кодинг</div>
+          <div class="body-text"><strong>«Создай Telegram-бота или сайт для своего хобби»</strong><br>Стажёр научится строить практичные инструменты: боты, сайты-визитки, интерактивные страницы — всё без скучного синтаксиса.</div>
+          <span class="cta-text" style="margin-top:12px;display:inline-block;background:var(--purple)">Выбрать Вайб-кодинг →</span>
+        </div>
+      </div>
+      <div id="l2dir-komanda" class="bb-content">
+        <div class="copy-box">
+          <div class="cb-label">Нейрокреатив · Команда</div>
+          <div class="h2-text">✨ Нейрокреатив</div>
+          <div class="body-text"><strong>«Создай мини-сериал или рекламный ролик для настоящего бренда»</strong><br>Архитекторы создают полноценные медиа-продукты: мини-сериалы, рекламные кампании, творческие проекты с полным продакшеном — сценарий, визуал, монтаж.</div>
+          <span class="cta-text" style="margin-top:12px;display:inline-block">Выбрать Нейрокреатив →</span>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Вайб-кодинг · Команда</div>
+          <div class="h2-text">💻 Вайб-кодинг</div>
+          <div class="body-text"><strong>«Разработай и запусти реальный продукт»</strong><br>Архитекторы строят настоящие продукты: игры с несколькими уровнями, web-приложения с базой данных, Telegram-боты с монетизацией — от концепции до деплоя на реальный домен.</div>
+          <span class="cta-text" style="margin-top:12px;display:inline-block;background:#1e3a5f">Выбрать Вайб-кодинг →</span>
+        </div>
+      </div>
+      <div id="l2dir-vis" class="bb-content">
+        <div class="field-text">Два блока (50%/50%) с уникальными иллюстрациями направлений. У каждой группы — свои примеры финального продукта на иллюстрации. Кнопки CTA под каждым направлением ведут на страницы курсов L3 (/kadety/neyrokreativ, /kadety/vayb-koding и т.д.).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L2 BLOCK 04: SKILLS -->
+  <div id="l2-skills" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--green-d);color:var(--green)">04</div>
+      <div class="block-title-wrap">
+        <div class="block-title">«Что умеет ребёнок после курса»</div>
+        <div class="block-subtitle">Конкретные навыки · 6–8 пунктов по направлениям</div>
+      </div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l2sk-copy')">Тексты RU</button>
+      </div>
+      <div id="l2sk-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">После курса ваш ребёнок умеет:</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Навыки Кадетов (общие)</div>
+          <div class="body-text">
+            ✅ Объяснять, что такое ИИ — просто и понятно (даже бабушке)<br>
+            ✅ Ставить задачи нейросети — писать правильные промпты<br>
+            ✅ Создавать иллюстрации и персонажей с помощью ИИ<br>
+            ✅ Соблюдать правила цифровой безопасности<br>
+            ✅ Применять ИИ для школьных задач<br>
+            ✅ Рассказать о своём проекте — и гордиться результатом
+          </div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Дополнительно: Нейрокреатив</div>
+          <div class="body-text">
+            ✅ Написать и проиллюстрировать историю с ИИ<br>
+            ✅ Создать анимацию или короткий мультик<br>
+            ✅ Опубликовать свою работу онлайн
+          </div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Дополнительно: Вайб-кодинг</div>
+          <div class="body-text">
+            ✅ Создать браузерную игру без знания синтаксиса<br>
+            ✅ Объяснить, как работает программа<br>
+            ✅ Показать игру друзьям через браузер
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L2 BLOCK 05-11 condensed for space -->
+  <div id="l2-works" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--teal-d);color:var(--teal)">05</div>
+      <div class="block-title-wrap"><div class="block-title">Работы учеников группы</div><div class="block-subtitle">Только релевантный возраст · Скриншоты + подписи</div></div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l2w-copy')">Тексты RU</button></div>
+      <div id="l2w-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Смотри, что уже создали [Кадеты / Стажёры / Архитекторы]</div>
+          <div class="body-text" style="margin-top:8px">Каждая работа — финальный проект реального ученика Академии. Имя, возраст, группа, направление.</div>
+        </div>
+        <div class="note-box">
+          <p><strong>На старте:</strong> использовать работы пилотной группы с пометкой «ученик тестового запуска». Подпись: «[Имя], [возраст] лет · Тестовая группа Академии».</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="l2-teacher" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--orange-d);color:var(--orange)">06</div>
+      <div class="block-title-wrap"><div class="block-title">Вице-адмирал группы — преподаватель</div><div class="block-subtitle">Детальная карточка · Видео-приветствие · Регалии</div></div>
+      <div class="btags"><span class="btag t-crit">Критический</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l2t-copy')">Тексты RU</button></div>
+      <div id="l2t-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Ваш Вице-адмирал</div>
+          <div class="body-text">Живой педагог, который ведёт группу [название]. Не бот, не запись — реальный человек, который знает и любит работу с детьми.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Шаблон карточки</div>
+          <div class="body-text">
+            <strong>[Имя Фамилия]</strong><br>
+            Вице-адмирал · Командир группы [название]<br><br>
+            [2–3 предложения о специализации, опыте и подходе к работе именно с этим возрастом]<br><br>
+            📚 [Вуз / специальность]<br>
+            ⭐ [Ключевая регалия]<br>
+            🎯 Работает с детьми [N] лет
+          </div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Цитата преподавателя</div>
+          <div class="body-text">«[Личная цитата о своём подходе к обучению или о том, что вдохновляет в работе с детьми — 1–2 предложения]»</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Видео-приветствие (если есть)</div>
+          <div class="body-text">Кнопка «Смотреть приветствие» → встроенное видео 60–90 сек. Автоплей с кнопкой play, без звука по умолчанию.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="l2-formats2" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--orange-d);color:var(--orange)">07</div>
+      <div class="block-title-wrap"><div class="block-title">Форматы и стоимость — подробно</div><div class="block-subtitle">Конкретные цены · Рассрочка · Сравнение с репетитором</div></div>
+      <div class="btags"><span class="btag t-crit">Критический</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l2fmt-copy')">Тексты RU</button></div>
+      <div id="l2fmt-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Форматы занятий и стоимость</div>
+          <div class="body-text" style="margin-top:6px">Один частный репетитор в Москве — от 2 500 ₽ за занятие. В Академии ребёнок получает больше: программу, педагога, платформу и результат.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">4 карточки форматов — шаблон</div>
+          <div class="format-grid">
+            <div class="format-card">
+              <div class="format-name">🎁 Бесплатный урок</div>
+              <div class="format-price">0 ₽</div>
+              <div class="format-desc">Попробуйте без риска. Ребёнок проходит первое занятие целиком. Вы видите формат и решаете.</div>
+            </div>
+            <div class="format-card" style="border-color:rgba(251,146,60,.3)">
+              <div class="format-name">🚀 Пробный урок</div>
+              <div class="format-price">990 ₽</div>
+              <div class="format-desc">Полноценное занятие с преподавателем. При покупке курса стоимость зачитывается полностью.</div>
+            </div>
+            <div class="format-card" style="border-color:rgba(45,212,191,.4)">
+              <div class="format-name" style="color:var(--teal)">📚 Запись + консультации ⭐</div>
+              <div class="format-price">3 990 ₽/мес</div>
+              <div class="format-desc">Занятия в записи в удобное время + консультации с педагогом + доступ к платформе + родительский кабинет. Рассрочка 0% доступна.</div>
+            </div>
+            <div class="format-card">
+              <div class="format-name">👑 Персональный</div>
+              <div class="format-price">7 990 ₽/мес</div>
+              <div class="format-desc">Индивидуальные занятия 1-на-1 с педагогом по расписанию. Максимальный прогресс.</div>
+            </div>
+          </div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Сноска</div>
+          <div class="body-text" style="font-size:12px">* Цены указаны как ориентировочные — уточняйте актуальные у менеджера. Рассрочка 0% от [банк-партнёр] на [N] месяцев.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="l2-safety" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--green-d);color:var(--green)">08</div>
+      <div class="block-title-wrap"><div class="block-title">Безопасность и родительский контроль</div><div class="block-subtitle">152-ФЗ · Без рекламы · Дашборд родителя</div></div>
+      <div class="btags"><span class="btag t-sup">Поддерживающий</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l2safe-copy')">Тексты RU</button></div>
+      <div id="l2safe-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Вы контролируете всё — мы за безопасность</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="body-text">
+            🛡️ <strong>Закрытая платформа</strong> — без рекламы, без внешних ссылок, без случайного контента<br><br>
+            👁️ <strong>Родительский кабинет</strong> — видите прогресс, пройденные миссии, время занятий<br><br>
+            📱 <strong>Уведомления в Telegram/WhatsApp</strong> — сразу узнаёте о выполненных уроках<br><br>
+            🔒 <strong>Защита данных</strong> — обработка персональных данных по 152-ФЗ. Данные ребёнка не передаются третьим лицам<br><br>
+            👨‍🏫 <strong>Живой педагог</strong> на каждом занятии, а не алгоритм<br><br>
+            🧠 <strong>Safety Shield</strong> — в каждом уроке отдельный пиллар о правилах цифровой безопасности
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="l2-reviews2" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--gold-d);color:var(--gold)">09</div>
+      <div class="block-title-wrap"><div class="block-title">Отзывы родителей данной группы</div><div class="block-subtitle">Только релевантный возраст · Скриншоты переписок</div></div>
+      <div class="btags"><span class="btag t-sup">Поддерживающий</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l2r-copy')">Тексты RU</button></div>
+      <div id="l2r-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Что говорят родители [Кадетов / Стажёров / Команды]</div>
+          <div class="body-text" style="margin-top:6px">Отзывы семей именно этой возрастной группы.</div>
+        </div>
+        <div class="note-box">
+          <p><strong>Принципиально важно:</strong> отзывы на странице Кадетов — только о детях 7–9 лет. Отзыв «мой 14-летний в восторге» на странице Кадетов снижает конверсию. Для каждой группы собирать отдельную базу.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="l2-cta2" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--red-d);color:var(--red)">10</div>
+      <div class="block-title-wrap"><div class="block-title">CTA — выбор направления</div><div class="block-subtitle">Финальный навигационный блок · Переход на L3</div></div>
+      <div class="btags"><span class="btag t-nav">Навигационный</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l2cta-copy')">Тексты RU</button></div>
+      <div id="l2cta-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Готовы выбрать направление?</div>
+          <div class="body-text">Оба пути ведут к реальному результату. Выбирайте то, что больше нравится ребёнку — или пройдите квиз, если нужна подсказка.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="body-text">
+            <span class="cta-text">✨ Нейрокреатив →</span>
+            <span class="cta-text" style="background:var(--purple);margin-left:8px">💻 Вайб-кодинг →</span>
+          </div>
+          <div style="margin-top:10px"><a style="font-size:12px;color:var(--text2)">Не знаете что выбрать? Пройдите квиз →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="l2-faq2" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--teal-d);color:var(--teal)">11</div>
+      <div class="block-title-wrap"><div class="block-title">FAQ группы</div><div class="block-subtitle">Специфичные вопросы по возрасту · 6–8 вопросов</div></div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l2faq-copy')">Тексты RU</button></div>
+      <div id="l2faq-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">FAQ · Кадеты (специфичные вопросы)</div>
+          <div class="body-text">
+            <strong>С 7 лет — не рано?</strong><br>Нет. Именно в этом возрасте дети лучше всего воспринимают новые форматы. Кадет 7 лет учится так же эффективно, как 9-летний — просто с другими примерами и заданиями.<br><br>
+            <strong>Ребёнок не умеет быстро печатать. Это проблема?</strong><br>Нет. Занятия не требуют скоростного набора. Многое делается кликами и выбором из вариантов.<br><br>
+            <strong>Сможет ли ребёнок заниматься самостоятельно?</strong><br>Для возраста 7–9 лет рекомендуем первые 2–3 урока пройти вместе. Дальше большинство детей занимаются сами — и с удовольствием.
+          </div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">FAQ · Команда (специфичные вопросы)</div>
+          <div class="body-text">
+            <strong>Нужно ли знать программирование?</strong><br>Нет. Вайб-кодинг — это создание продуктов с помощью ИИ без знания синтаксиса. Мы учим мыслить как разработчик, а не запоминать команды.<br><br>
+            <strong>Это поможет при поступлении в вуз?</strong><br>Да. Готовый проект в портфолио — реальный плюс при поступлении на IT-специальности. Ряд вузов уже смотрит на ИИ-навыки.<br><br>
+            <strong>Смогу ли я монетизировать проект после курса?</strong><br>Это возможно. На курсе мы разбираем, как развернуть продукт и как его можно монетизировать — это часть программы Архитекторов.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /level 2 section -->
+
+<div class="section-divider"></div>
+
+<!-- ============================================================ -->
+<!-- УРОВЕНЬ 3 -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">Уровень 3</div>
+    <h2>Страницы курсов</h2>
+    <p>6 страниц: /kadety/neyrokreativ · /kadety/vayb-koding · /stajery/neyrokreativ · /stajery/vayb-koding · /komanda/neyrokreativ · /komanda/vayb-koding. Горячая аудитория. 11 блоков.</p>
+  </div>
+
+  <!-- L3 BLOCK 01: HERO COURSE -->
+  <div id="l3-hero" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--red-d);color:var(--red)">01</div>
+      <div class="block-title-wrap"><div class="block-title">Hero курса — название, финальный результат, параметры</div><div class="block-subtitle">6 вариантов (группа × направление)</div></div>
+      <div class="btags"><span class="btag t-crit">Критический</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs">
+        <button class="bb-tab active" onclick="bbTab(this,'l3h-nk')">Нейрокреатив · все группы</button>
+        <button class="bb-tab" onclick="bbTab(this,'l3h-vk')">Вайб-кодинг · все группы</button>
+        <button class="bb-tab" onclick="bbTab(this,'l3h-vis')">Визуал</button>
+      </div>
+      <div id="l3h-nk" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">H1 · Нейрокреатив · Кадеты</div>
+          <div class="h1-text">Нейрокреатив<br>для Кадетов</div>
+          <div class="body-text" style="margin-top:8px">К концу курса ваш ребёнок создаст иллюстрированную книгу или мультфильм — с персонажами, голосом и сюжетом — и сможет показать её друзьям и родным.</div>
+          <div style="margin-top:12px;display:flex;gap:16px;flex-wrap:wrap">
+            <span style="font-size:12px;color:var(--text2)">📅 8 недель</span>
+            <span style="font-size:12px;color:var(--text2)">👶 7–9 лет</span>
+            <span style="font-size:12px;color:var(--text2)">⏱ 60–75 мин/неделю</span>
+            <span style="font-size:12px;color:var(--text2)">📚 8 миссий</span>
+          </div>
+          <span class="cta-text" style="margin-top:12px;display:inline-block">Записаться</span>
+          <span class="cta-sec" style="margin-top:12px">Бесплатный урок</span>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">H1 · Нейрокреатив · Стажёры</div>
+          <div class="h1-text">Нейрокреатив<br>для Стажёров</div>
+          <div class="body-text" style="margin-top:8px">К концу курса создашь видео-проект, серию публикаций или интерактивную презентацию — с нуля, с помощью ИИ. То, что реально можно публиковать.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">H1 · Нейрокреатив · Команда</div>
+          <div class="h1-text">Нейрокреатив<br>для Архитекторов</div>
+          <div class="body-text" style="margin-top:8px">Полноценный медиа-продукт: мини-сериал, рекламная кампания или документальный проект — с продакшеном на уровне профессионального контента.</div>
+        </div>
+      </div>
+      <div id="l3h-vk" class="bb-content">
+        <div class="copy-box">
+          <div class="cb-label">H1 · Вайб-кодинг · Кадеты</div>
+          <div class="h1-text">Вайб-кодинг<br>для Кадетов</div>
+          <div class="body-text" style="margin-top:8px">К концу курса ваш ребёнок создаст настоящую браузерную игру — с уровнями, очками и персонажем. Можно будет дать ссылку другу и сыграть вместе.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">H1 · Вайб-кодинг · Стажёры</div>
+          <div class="h1-text">Вайб-кодинг<br>для Стажёров</div>
+          <div class="body-text" style="margin-top:8px">Telegram-бот для школы, сайт-визитка или интерактивный инструмент для хобби — реальный продукт, которым можно пользоваться каждый день.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">H1 · Вайб-кодинг · Команда</div>
+          <div class="h1-text">Вайб-кодинг<br>для Архитекторов</div>
+          <div class="body-text" style="margin-top:8px">Реальный продакт-проект — от концепции до деплоя. Игра с монетизацией, web-приложение или Telegram-бот с базой данных. Всё по-настоящему.</div>
+        </div>
+      </div>
+      <div id="l3h-vis" class="bb-content">
+        <div class="field-text">Уникальный Hero для каждого из 6 курсов. Персонаж: соответствующий группе. Фон: цвет направления (фиолетово-бирюзовый для Нейрокреатива, тёмно-синий для Вайб-кодинга). Метаинформация (длительность, возраст, формат) — иконки в ряд под заголовком. Две кнопки CTA. Breadcrumb: Академия → [Группа] → [Направление].</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L3 BLOCK 02: PRODUCT -->
+  <div id="l3-product" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--red-d);color:var(--red)">02</div>
+      <div class="block-title-wrap"><div class="block-title">«Что создаст ребёнок» — финальный продукт курса</div><div class="block-subtitle">Главный конверсионный блок L3 · Конкретика</div></div>
+      <div class="btags"><span class="btag t-crit">Критический</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l3p-copy')">Тексты RU</button></div>
+      <div id="l3p-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Финальный проект курса</div>
+          <div class="body-text">Это не сертификат и не «знание темы». Это реальный продукт, который можно показать, опубликовать и использовать.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Нейрокреатив · Кадеты</div>
+          <div class="body-text">📖 <strong>Иллюстрированная книга с озвученной версией</strong><br>Ребёнок придумывает сюжет → создаёт персонажей с ИИ → пишет историю → добавляет иллюстрации → записывает озвучку. Результат: книга из 10–15 страниц в PDF или на сайте, которую можно читать всей семьёй.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Вайб-кодинг · Команда</div>
+          <div class="body-text">🎮 <strong>Запущенный web-продукт с реальным URL</strong><br>От брифа → архитектуры → создания с ИИ → тестирования → деплоя на реальный домен. Игра с уровнями, web-приложение или сервис. Продукт, который живёт в интернете и которым можно поделиться.</div>
+        </div>
+        <div class="note-box">
+          <p><strong>Для разработчика:</strong> в этот блок вставляется изображение финального продукта — mockup книги, скриншот игры или сайта. На старте — работы пилотной группы. Формат: 600×400px min, WebP.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L3 BLOCK 03: MISSIONS -->
+  <div id="l3-program" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--purple-d);color:var(--purple)">03</div>
+      <div class="block-title-wrap"><div class="block-title">Программа — список миссий</div><div class="block-subtitle">Аккордеон · Первая раскрыта · Прогресс сложности</div></div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l3prog-copy')">Тексты RU · шаблон</button></div>
+      <div id="l3prog-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Программа курса: 8 миссий</div>
+          <div class="body-text">Каждая миссия — один шаг ближе к финальному продукту. Сложность нарастает от урока к уроку.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Шаблон миссии (аккордеон)</div>
+          <div class="body-text">
+            <strong>🚀 Миссия 1 · Старт · Уровень: Старт</strong> — «Добро пожаловать в Академию»<br>
+            <span style="font-size:12px;color:var(--text3)">45 мин · Лёгкий</span><br>
+            Знакомство с платформой, первый промпт, создание персонажа — и первый маленький результат уже в первый день.<br><br>
+            <strong>🛸 Миссия 2 · Разведка · Уровень: Лёгкий</strong><br>
+            <strong>🌌 Миссия 3–5 · Исследование · Уровень: Средний</strong><br>
+            <strong>⚡ Миссия 6–7 · Строительство · Уровень: Сложный</strong><br>
+            <strong>🏆 Миссия 8 · Финал · Финальный проект</strong> — сборка и публикация продукта
+          </div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Дополнительно: домашнее задание</div>
+          <div class="body-text">После каждой миссии — задание «Покажи родителю». Ребёнок объясняет, что сделал и чему научился. Это встроенный механизм вовлечения семьи в обучение.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L3 BLOCK 04: PILLARS -->
+  <div id="l3-pillars" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--teal-d);color:var(--teal)">04</div>
+      <div class="block-title-wrap"><div class="block-title">Шаблон урока — 6 пилларов</div><div class="block-subtitle">Уникальная методика · Конкурентное преимущество</div></div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l3pill-copy')">Тексты RU</button><button class="bb-tab" onclick="bbTab(this,'l3pill-vis')">Визуал</button></div>
+      <div id="l3pill-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Как устроен каждый урок</div>
+          <div class="body-text">Все 8 занятий — по одному шаблону. Это снижает тревогу ребёнка («я знаю, что будет дальше»), а родителю даёт предсказуемость.</div>
+        </div>
+        <div class="pillars-grid" style="margin-top:12px">
+          <div class="pillar-card">
+            <div class="pillar-num">Warm-up</div>
+            <div class="pillar-name">🔥 Разминка</div>
+            <div class="pillar-time">3–5 мин</div>
+            <div class="pillar-desc">Что будет на занятии. Специально объяснено для родителей — что ребёнок узнает и создаст сегодня.</div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-num">Пиллар 1</div>
+            <div class="pillar-name">🤖 AI Awakening</div>
+            <div class="pillar-time">5 мин</div>
+            <div class="pillar-desc">Мини-видео или анимация с новой идеей о возможностях ИИ. Каждый раз — другой угол.</div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-num">Пиллар 2</div>
+            <div class="pillar-name">🛡️ Safety Shield</div>
+            <div class="pillar-time">7 мин</div>
+            <div class="pillar-desc">1–2 правила цифровой безопасности + мини-задание. Например: «Проверь промпт — нет ли личных данных?»</div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-num">Пиллар 3</div>
+            <div class="pillar-name">📖 Новая тема</div>
+            <div class="pillar-time">8 мин</div>
+            <div class="pillar-desc">Объяснение + воркшоп. Ребёнок не смотрит — он делает.</div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-num">Пиллар 4</div>
+            <div class="pillar-name">📚 Study Supercharge</div>
+            <div class="pillar-time">8 мин</div>
+            <div class="pillar-desc">Применение к школьному примеру. ИИ помогает в учёбе — не заменяет её.</div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-num">Пиллар 5</div>
+            <div class="pillar-name">🚀 Creative Mode</div>
+            <div class="pillar-time">8 мин</div>
+            <div class="pillar-desc">Творческий или футуристичный твист темы — идея карьеры, изобретение, история.</div>
+          </div>
+        </div>
+        <div class="pillar-card" style="margin-top:8px">
+          <div class="pillar-num">Пиллар 6</div>
+          <div class="pillar-name">🏅 AI Habit Builder</div>
+          <div class="pillar-time">5–7 мин</div>
+          <div class="pillar-desc">Как встроить навык в день + рефлексия + обновление трекера/бейджа. Домашнее задание: «Покажи и объясни родителю».</div>
+        </div>
+        <div class="copy-box" style="margin-top:12px">
+          <div class="cb-label">Итоговое время урока</div>
+          <div class="body-text">Общее время: <strong>45–75 минут</strong>. Можно разбить на 3–5 дней по 10–15 минут — пилларная структура позволяет останавливаться и продолжать.</div>
+        </div>
+      </div>
+      <div id="l3pill-vis" class="bb-content">
+        <div class="field-text">6 карточек в сетке 3×2. Каждая карточка: номер пиллара (маленький верхний текст), иконка, название на русском, время (цвет teal), описание. Warm-up выделена отдельным цветом и пометкой «для родителей». Визуальный акцент: горизонтальная timeline-полоска сверху со всеми 6 пилларами для общего понимания структуры.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L3 BLOCKS 05-11 condensed -->
+  <div id="l3-teacher2" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--orange-d);color:var(--orange)">05</div>
+      <div class="block-title-wrap"><div class="block-title">Преподаватель курса — расширенная карточка</div><div class="block-subtitle">Видео-приветствие · Кейсы учеников · Биография</div></div>
+      <div class="btags"><span class="btag t-sup">Поддерживающий</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l3t-copy')">Тексты RU</button></div>
+      <div id="l3t-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Ваш преподаватель</div>
+          <div class="body-text">На уровне 3 — максимальные детали: расширенная биография, список регалий, 2–3 кейса учеников с именами и результатами, видео-приветствие 60–90 секунд. Личный контакт через видео конвертирует лучше любого текста.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Шаблон расширенной карточки</div>
+          <div class="body-text"><strong>[Имя Фамилия]</strong><br>
+          Вице-адмирал · [Группа] · [Направление]<br><br>
+          [3–4 предложения о специализации, философии преподавания, личном опыте с ИИ]<br><br>
+          📚 [Вуз, специальность]<br>
+          💼 [N] лет опыта работы с детьми / в теме ИИ<br>
+          🏆 [Ключевая награда или достижение]<br>
+          🎯 Специализация: [тема]<br><br>
+          <em>«[Цитата — 1–2 предложения о своём подходе]»</em><br><br>
+          Ученики [Имя, возраст]: [краткий кейс-результат]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="l3-pricing" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--red-d);color:var(--red)">06</div>
+      <div class="block-title-wrap"><div class="block-title">Тарифы — конкретные цены</div><div class="block-subtitle">3 карточки · Акцент на основном · Таймер акции (опц.)</div></div>
+      <div class="btags"><span class="btag t-crit">Критический</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l3pr-copy')">Тексты RU</button></div>
+      <div id="l3pr-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Выберите формат</div>
+          <div class="body-text">Все форматы включают доступ к платформе и родительский кабинет.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px">
+          <div class="format-card">
+            <div class="format-name">🚀 Пробный</div>
+            <div class="format-price">990 ₽</div>
+            <div class="format-desc">1 полноценное занятие. Стоимость зачитывается при покупке курса.</div>
+            <div style="margin-top:8px"><span class="cta-sec" style="font-size:11px;padding:5px 10px;display:inline-block">Попробовать</span></div>
+          </div>
+          <div class="format-card" style="border-color:rgba(45,212,191,.5);position:relative">
+            <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--teal);color:#000;font-size:10px;font-weight:700;padding:2px 10px;border-radius:10px;white-space:nowrap">⭐ Популярный</div>
+            <div class="format-name" style="color:var(--teal)">📚 Запись + консультации</div>
+            <div class="format-price">3 990 ₽/мес</div>
+            <div class="format-desc">Полная программа · Консультации педагога · Родительский кабинет · Рассрочка 0%</div>
+            <div style="margin-top:8px"><span class="cta-text" style="font-size:11px;padding:5px 10px;display:inline-block">Записаться</span></div>
+          </div>
+          <div class="format-card">
+            <div class="format-name">👑 Персональный</div>
+            <div class="format-price">7 990 ₽/мес</div>
+            <div class="format-desc">1-на-1 с педагогом · Расписание под вас · Максимальный результат</div>
+            <div style="margin-top:8px"><span class="cta-sec" style="font-size:11px;padding:5px 10px;display:inline-block">Записаться</span></div>
+          </div>
+        </div>
+        <div class="copy-box" style="margin-top:10px">
+          <div class="cb-label">Уведомление о рассрочке</div>
+          <div class="body-text" style="font-size:12px">💳 Рассрочка 0% на [N] месяцев. Оплата частями без переплат. Подробности у менеджера.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="l3-form" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--teal-d);color:var(--teal)">07</div>
+      <div class="block-title-wrap"><div class="block-title">Форма записи — Lead-форма</div><div class="block-subtitle">ID: #form · Дублируется 3 раза на странице</div></div>
+      <div class="btags"><span class="btag t-lead">Лид-магнит</span><span class="btag t-crit">Критический</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l3f-copy')">Тексты RU</button><button class="bb-tab" onclick="bbTab(this,'l3f-tech')">Технические требования</button></div>
+      <div id="l3f-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок формы</div>
+          <div class="h2-text">Начни первую миссию</div>
+          <div class="body-text">Оставьте контакт — куратор свяжется с вами в течение 15 минут и ответит на все вопросы.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Поля формы</div>
+          <div class="body-text">
+            Поле 1: «Ваше имя» (text, обязательное)<br>
+            Поле 2: «Имя ребёнка» (text, обязательное)<br>
+            Поле 3: «Телефон» (tel, обязательное, +7/+8 маска)<br>
+            Поле 4: «Удобный мессенджер» (select: Telegram / WhatsApp / Позвоните мне)<br>
+            Поле 5: «Выберите формат» (select: Бесплатный / Пробный / Запись / Персональный — опциональное)
+          </div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Кнопка</div>
+          <span class="cta-text">Записаться на бесплатный урок</span>
+          <div class="body-text" style="margin-top:8px;font-size:12px;color:var(--text3)">Нажимая кнопку, вы соглашаетесь с <a>политикой обработки персональных данных</a></div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Под кнопкой</div>
+          <div class="body-text">📱 Вам ответят в <strong>Telegram</strong> или <strong>WhatsApp</strong> — как удобно.<br>⏱ Среднее время ответа: 15 минут в рабочие часы.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Thank You — после отправки</div>
+          <div class="body-text">🚀 <strong>Ваша заявка принята!</strong><br>Куратор Академии свяжется с вами в течение 15 минут. А пока — посмотрите, что создают ученики нашего курса.</div>
+          <span class="cta-sec" style="margin-top:8px;display:inline-block">Смотреть работы учеников</span>
+        </div>
+      </div>
+      <div id="l3f-tech" class="bb-content">
+        <ul class="ul-list">
+          <li>Форма встроена три раза: якорь в Hero (кнопка «Записаться»), самостоятельный блок в середине страницы (после тарифов), финальный CTA-блок</li>
+          <li>Отправка: POST на backend → CRM (Bitrix24/AmoCRM) + Telegram-бот менеджеру + email подтверждение родителю</li>
+          <li>Телефон: маска ввода +7 (XXX) XXX-XX-XX, валидация на 11 цифр</li>
+          <li>Кнопка: disabled до заполнения обязательных полей</li>
+          <li>После отправки: форма скрывается, показывается Thank You сообщение (в том же контейнере, без редиректа)</li>
+          <li>UTM-параметры: передаются в CRM из URL для аналитики источника</li>
+          <li>reCAPTCHA v3 (невидимая) для защиты от спама</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="l3-guarantee" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--green-d);color:var(--green)">08</div>
+      <div class="block-title-wrap"><div class="block-title">Гарантии и безопасность</div><div class="block-subtitle">Возврат · Пересдача миссий · 152-ФЗ</div></div>
+      <div class="btags"><span class="btag t-sup">Поддерживающий</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l3g-copy')">Тексты RU</button></div>
+      <div id="l3g-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Мы уверены в нашем курсе</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="body-text">
+            ✅ <strong>Первый урок бесплатно</strong> — никакого риска попробовать<br><br>
+            🔄 <strong>Пересдача любой миссии</strong> — если что-то не получилось, можно повторить без доплаты<br><br>
+            💳 <strong>Возврат за неиспользованные уроки</strong> — по условиям договора<br><br>
+            🔒 <strong>Данные ребёнка защищены</strong> — обработка по 152-ФЗ, не передаём третьим лицам<br><br>
+            🚫 <strong>Без рекламы и внешних ссылок</strong> на платформе<br><br>
+            👁️ <strong>Родительский кабинет</strong> — полный доступ к прогрессу и активности ребёнка
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="l3-reviews3" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--gold-d);color:var(--gold)">09</div>
+      <div class="block-title-wrap"><div class="block-title">Отзывы о данном курсе</div><div class="block-subtitle">Конкретный курс + конкретный возраст + финальная работа</div></div>
+      <div class="btags"><span class="btag t-sup">Поддерживающий</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l3r-copy')">Тексты RU</button></div>
+      <div id="l3r-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h2-text">Что говорят об этом курсе</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Шаблон карточки с работой ученика</div>
+          <div class="body-text"><strong>[Имя родителя], [роль] [Имя ребёнка], [N] лет</strong><br>«[Конкретный результат — 2–3 предложения]»<br><br>
+          → [Миниатюра финального проекта ребёнка]<br>
+          <span style="font-size:11px;color:var(--text3)">[Курс] · [Направление] · [Формат]</span></div>
+        </div>
+        <div class="note-box">
+          <p><strong>Ключевой элемент:</strong> рядом с отзывом — скриншот или превью финального проекта ребёнка. Это соединяет слова родителя с конкретным результатом. Самый мощный доказательный элемент на L3.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="l3-faq3" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--teal-d);color:var(--teal)">10</div>
+      <div class="block-title-wrap"><div class="block-title">FAQ курса</div><div class="block-subtitle">Специфика курса · Старт · Техника · Сертификат</div></div>
+      <div class="btags"><span class="btag t-key">Ключевой</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l3faq-copy')">Тексты RU</button></div>
+      <div id="l3faq-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">8 вопросов FAQ курса</div>
+          <div class="body-text">
+            <strong>Когда ближайший старт курса?</strong><br>Курс стартует [дата]. Следующий набор — [дата]. Места ограничены. Запись открыта прямо сейчас.<br><br>
+            <strong>Нужен ли особый компьютер или программы?</strong><br>Нет. Нужен любой компьютер, ноутбук или планшет с браузером и интернетом. Ничего устанавливать не нужно.<br><br>
+            <strong>Сколько мест в группе?</strong><br>[N] учеников в группе. Маленький размер — больше внимания педагога каждому ребёнку.<br><br>
+            <strong>Что, если ребёнок пропустит занятие?</strong><br>Занятия записаны — ребёнок может посмотреть в любое время. Консультация с педагогом поможет наверстать.<br><br>
+            <strong>Выдаётся ли сертификат?</strong><br>Да. По окончании курса ребёнок получает сертификат Космической Академии + готовый финальный проект.<br><br>
+            <strong>Что нужно для занятий?</strong><br>Компьютер/планшет + интернет + 45–75 минут в неделю + желание создавать. Всё остальное — на нас.<br><br>
+            <strong>Как проходят консультации с педагогом?</strong><br>В мессенджере (Telegram/WhatsApp) или в видеозвонке — по договорённости. Педагог отвечает в течение 24 часов в рабочие дни.<br><br>
+            <strong>Есть ли задания на лето/каникулы?</strong><br>Программа гибкая. В каникулы ритм можно замедлить — курс доступен 3 месяца с момента покупки.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="l3-finalcta" class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--red-d);color:var(--red)">11</div>
+      <div class="block-title-wrap"><div class="block-title">Финальный CTA + повторная форма</div><div class="block-subtitle">Счётчик мест / таймер · Дубль формы</div></div>
+      <div class="btags"><span class="btag t-crit">Критический</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'l3fcta-copy')">Тексты RU</button></div>
+      <div id="l3fcta-copy" class="bb-content active">
+        <div class="copy-box">
+          <div class="cb-label">Заголовок</div>
+          <div class="h1-text">Начни свою первую миссию</div>
+          <div class="body-text" style="margin-top:8px">Осталось [N] мест на ближайший набор. Следующий старт — [дата].</div>
+          <span class="cta-text" style="margin-top:12px;display:inline-block">Записаться на бесплатный урок</span>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Счётчик (если применимо)</div>
+          <div class="body-text">🕐 До следующего старта: [XX:XX:XX] — динамический таймер (JavaScript).<br>Или: 🚀 Осталось [N] мест — статический текст, обновляемый вручную.</div>
+        </div>
+        <div class="copy-box" style="margin-top:8px">
+          <div class="cb-label">Дубль формы</div>
+          <div class="body-text">Та же форма из блока 07, с якорем #form-final. Если пользователь уже заполнял — форма скрыта, показывается сообщение «Ваша заявка уже принята ✅».</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /level 3 section -->
+
+<div class="section-divider"></div>
+
+<!-- ===== KAZAKHSTAN DIFFERENCES ===== -->
+<div id="kz-diff" class="section">
+  <div class="section-header">
+    <div class="section-label">Казахстанский рынок</div>
+    <h2>Отличия KZ-версии от RU-версии</h2>
+    <p>KZ-версия — отдельные страницы (поддомен kz. или отдельный домен). Структура идентична RU, но ниже перечислены все блоки, тексты и элементы, которые отличаются.</p>
+  </div>
+
+  <div class="block-card">
+    <div class="block-card-head" onclick="tog(this)">
+      <div class="bn" style="background:var(--teal-d);color:var(--teal)">KZ</div>
+      <div class="block-title-wrap"><div class="block-title">Все ключевые отличия KZ от RU</div><div class="block-subtitle">Тексты · Персонажи · Триггеры · Контакты</div></div>
+      <div class="btags"><span class="diff-badge" style="margin:0">KZ-специфика</span></div>
+      <div class="bchev">▼</div>
+    </div>
+    <div class="block-body">
+      <div class="bb-tabs"><button class="bb-tab active" onclick="bbTab(this,'kz-all')">Все отличия</button></div>
+      <div id="kz-all" class="bb-content active">
+
+        <div class="field"><div class="field-label">Hero L1 — H1 (основной вариант KZ)</div>
+          <div class="copy-box kz-box">
+            <div class="cb-label">KZ · Вариант A</div>
+            <div class="h1-text">Казахстан строит<br>цифровое будущее —<br>ваш ребёнок будет среди создателей</div>
+            <div class="body-text" style="margin-top:8px">Космическая Академия — онлайн-школа, где дети от 7 до 17 лет учатся создавать настоящие продукты с ИИ. Не теория из учебника — реальный результат в руках ребёнка.</div>
+          </div>
+          <div class="copy-box kz-box" style="margin-top:8px">
+            <div class="cb-label">KZ · Вариант B (апелляция к госкурсу)</div>
+            <div class="h1-text">Школа вводит ИИ.<br>Академия даёт то, чего<br>в школе нет — результат.</div>
+            <div class="body-text" style="margin-top:8px">С 2025 года ИИ в казахстанских школах — это теория. Академия — практика: ваш ребёнок создаёт реальный продукт, а не сдаёт тест.</div>
+          </div>
+        </div>
+
+        <div class="field"><div class="field-label">Блок доверия KZ — замена сертификатов</div>
+          <div class="copy-box kz-box">
+            <div class="body-text">
+              <strong>RU-версия:</strong> COPPA, 152-ФЗ, лицензия Рособрнадзора<br>
+              <strong>KZ-версия:</strong> Поддержка государственного курса на цифровизацию · «Программа соответствует национальной стратегии AI Kazakhstan 2025–2029» · Работаем на двух языках: казахский и русский · Понимаем казахстанский контекст
+            </div>
+          </div>
+        </div>
+
+        <div class="field"><div class="field-label">Блок «Почему сейчас» — KZ-версия тезиса 1</div>
+          <div class="copy-box kz-box">
+            <div class="cb-label">Тезис 1 KZ — замена «ИИ уже везде»</div>
+            <div class="h2-text">Президент Токаев поставил цель: Казахстан — в топ-30 по ИИ к 2029</div>
+            <div class="body-text">ИИ-грамотность стала государственным приоритетом. Школы вводят предметы. Но школьная программа даёт теорию. Академия — практику.</div>
+          </div>
+        </div>
+
+        <div class="field"><div class="field-label">Персонажи KZ</div>
+          <div class="copy-box kz-box">
+            <div class="body-text">
+              Основные персонажи KZ-версии:<br>
+              — Лео (универсальный, тот же)<br>
+              — Лина (азиатская внешность, фиолетовый костюм) — для Стажёров и Нейрокреатива<br>
+              — Арло (универсальный, тот же) — Команда<br><br>
+              Зара (тёмнокожая девочка) присутствует в галерее и блоке доверия для демонстрации инклюзивности.
+            </div>
+          </div>
+        </div>
+
+        <div class="field"><div class="field-label">Языковая политика</div>
+          <div class="copy-box kz-box">
+            <div class="body-text">
+              Кнопка переключения языка в шапке: 🇰🇿 Қазақша / 🇷🇺 Русский<br><br>
+              Русскоязычная версия (основная): все страницы полностью на русском.<br>
+              Казахскоязычная версия (приоритет разработки v2): ключевые страницы L1 + 3 Hero L2 + FAQ.<br><br>
+              Поддержка в Telegram: отвечаем на казахском и русском.<br>
+              Менеджер: двуязычный.
+            </div>
+          </div>
+        </div>
+
+        <div class="field"><div class="field-label">Контакты и мессенджеры KZ</div>
+          <div class="copy-box kz-box">
+            <div class="body-text">
+              WhatsApp (основной для KZ): +7-XXX-XXX-XX-XX<br>
+              Telegram: @KosmosAkademia_KZ<br>
+              Нет ВКонтакте — замена на Instagram (допустим в KZ)<br>
+              Нет 8-800 (бесплатные номера работают иначе) — прямой номер<br><br>
+              <strong>Важно:</strong> WhatsApp в Казахстане значительно популярнее Telegram — ставить его первым в шапке и форме.
+            </div>
+          </div>
+        </div>
+
+        <div class="field"><div class="field-label">Цены KZ</div>
+          <div class="copy-box kz-box">
+            <div class="body-text">
+              Цены отображаются в тенге (₸), не в рублях.<br>
+              Эквивалент по курсу × 1.1 (психологическая надбавка рынка).<br>
+              Рассрочка: Kaspi рассрочка 0% — казахстанский стандарт, обязательно упомянуть.<br><br>
+              Пример:<br>
+              Бесплатный урок — 0 ₸<br>
+              Пробный урок — от 4 500 ₸<br>
+              Запись + консультации — от 18 900 ₸/мес<br>
+              Персональный — от 37 900 ₸/мес
+            </div>
+          </div>
+        </div>
+
+        <div class="field"><div class="field-label">Блок «Для кого» — KZ версия Команды 14+</div>
+          <div class="copy-box kz-box">
+            <div class="body-text">Добавляется пункт:<br>✅ Хочешь навык, который ценится на KZ IT-рынке — одном из самых быстрорастущих в регионе<br>✅ Мечтаешь создать стартап или работать в международной компании</div>
+          </div>
+        </div>
+
+        <div class="field"><div class="field-label">FAQ L1 — KZ специфичные вопросы</div>
+          <div class="copy-box kz-box">
+            <div class="body-text">
+              <strong>Это связано с тем, что вводят в казахстанских школах?</strong><br>
+              Да. Школьная программа и наш курс направлены в одну сторону — ИИ-грамотность. Разница: в школе это теория и знакомство. В Академии — создание реального продукта и практические навыки.<br><br>
+              <strong>Есть ли занятия на казахском языке?</strong><br>
+              Обучение ведётся на русском. Поддержка и общение с куратором доступны на казахском. Казахскоязычная версия курсов — в разработке.<br><br>
+              <strong>Принимается ли Kaspi рассрочка?</strong><br>
+              Да, рассрочка 0% через Kaspi Bank на [N] месяцев.
+            </div>
+          </div>
+        </div>
+
+        <div class="field"><div class="field-label">Футер KZ</div>
+          <div class="copy-box kz-box">
+            <div class="body-text">
+              Юридический блок: [Название юр. лица в РК], БИН [XXX]<br>
+              Нет упоминания 152-ФЗ (российский закон) — замена на: «Обработка данных в соответствии с Законом РК «О персональных данных и их защите»»<br>
+              Соцсети: WhatsApp · Telegram · Instagram · YouTube
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /panel-ru -->
+
+<!-- KZ PANEL (mirror note) -->
+<div id="panel-kz" class="market-panel">
+  <div class="section doc-header">
+    <div class="doc-version">Казахстанский рынок</div>
+    <h1>KZ-версия платформы</h1>
+    <p>Структура KZ полностью идентична RU (те же 13+11+11 блоков на трёх уровнях). Переключитесь обратно на вкладку «Россия» и найдите раздел «Отличия KZ от RU» — там собраны все специфичные тексты, персонажи, ценообразование и контакты для казахстанского рынка.</p>
+    <div class="meta-chips">
+      <span class="mc" style="color:var(--teal);border-color:rgba(45,212,191,.3)">Структура: идентично RU</span>
+      <span class="mc" style="color:var(--gold);border-color:rgba(251,191,36,.2)">Персонаж: Лина вместо Аури</span>
+      <span class="mc" style="color:var(--green);border-color:rgba(74,222,128,.2)">Цены в тенге (₸)</span>
+      <span class="mc">Kaspi рассрочка</span>
+      <span class="mc">WhatsApp первичный</span>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// Toggle block open/close
+function tog(head) {
+  const body = head.nextElementSibling;
+  const ch = head.querySelector('.bchev');
+  const open = body.classList.toggle('open');
+  ch.style.transform = open ? 'rotate(180deg)' : '';
+}
+
+// Switch tabs inside a block
+function bbTab(btn, targetId) {
+  const body = btn.closest('.block-body');
+  if (!body) return;
+  body.querySelectorAll('.bb-tab').forEach(t => t.classList.remove('active','active-kz'));
+  body.querySelectorAll('.bb-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  const target = document.getElementById(targetId);
+  if (target) target.classList.add('active');
+}
+
+// Switch market (RU / KZ)
+function switchMarket(mkt, btn) {
+  document.querySelectorAll('.sb-mtab').forEach(t => t.classList.remove('active-ru','active-kz'));
+  btn.classList.add('active-'+mkt);
+  document.querySelectorAll('.market-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('panel-'+mkt);
+  if (panel) panel.classList.add('active');
+}
+
+// Scroll to block, auto-expand it, update sidebar active state
+function scrollToBlock(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  // Update sidebar active link
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active','active-kz-nav'));
+  const activeLink = document.querySelector('.sb-link[onclick*="' + id + '"]');
+  if (activeLink) activeLink.classList.add('active');
+
+  // If it's a block-card, auto-expand the block-body
+  if (el.classList.contains('block-card')) {
+    const body = el.querySelector('.block-body');
+    const chev = el.querySelector('.bchev');
+    if (body && !body.classList.contains('open')) {
+      body.classList.add('open');
+      if (chev) chev.style.transform = 'rotate(180deg)';
+    }
+  }
+
+  // Scroll using window.scrollTo with offset for any fixed header
+  const top = el.getBoundingClientRect().top + window.pageYOffset - 16;
+  window.scrollTo({ top: top, behavior: 'smooth' });
+}
+
+// Highlight sidebar link on scroll (IntersectionObserver)
+const navTargets = document.querySelectorAll('.block-card[id], .section[id]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active','active-kz-nav'));
+      const match = document.querySelector('.sb-link[onclick*="' + id + '"]');
+      if (match) match.classList.add('active');
+    }
+  });
+}, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
+
+navTargets.forEach(t => observer.observe(t));
+</script>
+</body>
+</html>

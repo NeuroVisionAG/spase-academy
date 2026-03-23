@@ -1,0 +1,209 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background-color: #0e1118;
+  color: #dde3f0;
+  overflow: hidden;
+  padding: 120px 20px 40px; /* Учет фиксированной шапки и уменьшенный отступ снизу */
+  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+}
+
+/* Космический фон: Звезды и туманности */
+.stars {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    radial-gradient(1.5px 1.5px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.4), rgba(0,0,0,0));
+  background-size: 200px 200px;
+  animation: starFloat 120s linear infinite;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.nebula1, .nebula2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+}
+
+.nebula1 {
+  top: -10%; left: -10%;
+  width: 50vw; height: 50vw;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.12) 0%, transparent 70%);
+}
+
+.nebula2 {
+  bottom: -20%; right: -10%;
+  width: 60vw; height: 60vw;
+  background: radial-gradient(circle, rgba(45, 212, 191, 0.08) 0%, transparent 70%);
+}
+
+/* Контейнер контента */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8vh;
+}
+
+.topContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.leftCol {
+  flex: 0 0 60%;
+  max-width: 60%;
+}
+
+.title {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.highlight {
+  background: linear-gradient(90deg, #2dd4bf, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #8b96b0;
+  margin-bottom: 40px;
+  max-width: 90%;
+}
+
+/* Кнопки CTA */
+.ctaGroup {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.primaryBtn, .secondaryBtn {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 16px 28px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.02em;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, #2dd4bf, #fb923c);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 15px rgba(45, 212, 191, 0.3);
+}
+
+.primaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 212, 191, 0.5);
+}
+
+.secondaryBtn {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.secondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* Бейджи */
+.badgesGroup {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 0.85rem;
+  color: #dde3f0;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 14px;
+  border-radius: 30px;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Правая колонка: Лео */
+.rightCol {
+  flex: 0 0 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.characterWrapper {
+  animation: float 4s ease-in-out infinite;
+}
+
+.heroImage {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(45, 212, 191, 0.2));
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes starFloat {
+  from { background-position: 0 0; }
+  to { background-position: -200px -200px; }
+}
+
+/* Мобильная адаптивность */
+@media (max-width: 968px) {
+  .topContent {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .leftCol, .rightCol {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .subtitle {
+    margin: 0 auto 32px;
+  }
+
+  .ctaGroup {
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .badgesGroup {
+    justify-content: center;
+  }
+}

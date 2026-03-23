@@ -1,0 +1,52 @@
+.widget-group-dirs {
+  padding: 100px 0;
+  background: var(--color-bg-surface);
+}
+
+.widget-group-dirs__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.widget-group-dirs__title {
+  font-size: var(--text-4xl, 36px);
+  text-align: center;
+  color: var(--color-text-primary);
+  margin-bottom: 64px;
+}
+
+.widget-group-dirs__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.widget-group-dirs__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+}
+
+.widget-group-dirs__name {
+  font-size: 28px;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+}
+
+.widget-group-dirs__short {
+  color: var(--color-teal-400);
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.widget-group-dirs__desc {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.widget-group-dirs__actions {
+  display: flex;
+}

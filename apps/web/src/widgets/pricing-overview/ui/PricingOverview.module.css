@@ -1,0 +1,182 @@
+.pricingBlock {
+  background-color: #0e1118;
+  padding: 100px 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.title {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: clamp(2rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #8b96b0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: rgba(30, 36, 50, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 40px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.cardFree {
+  background: linear-gradient(160deg, rgba(16, 185, 129, 0.15) 0%, rgba(30, 36, 50, 0.4) 100%);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.cardFree:hover {
+  border-color: rgba(16, 185, 129, 0.7);
+  box-shadow: 0 15px 35px rgba(16, 185, 129, 0.15);
+}
+
+.cardPopular {
+  border-color: #06b6d4; /* Teal */
+}
+
+.cardPopular:hover {
+  border-color: #06b6d4;
+  box-shadow: 0 15px 35px rgba(6, 182, 212, 0.15);
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 24px;
+  background: #06b6d4;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.iconWrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #a78bfa; /* Generic nice purple */
+  transition: all 0.3s ease;
+}
+
+.card:hover .iconWrapper {
+  transform: scale(1.1);
+}
+
+.cardFree .iconWrapper {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.cardPopular .iconWrapper {
+  background: rgba(6, 182, 212, 0.15);
+  color: #06b6d4;
+}
+
+.cardTitle {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.cardPrice {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #a78bfa;
+  margin-bottom: 20px;
+}
+
+.cardFree .cardPrice {
+  color: #10b981;
+}
+
+.cardPopular .cardPrice {
+  color: #06b6d4;
+}
+
+.cardDesc {
+  font-size: 0.95rem;
+  color: #dde3f0;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.note {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #8b96b0;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pricingBlock {
+    padding: 60px 20px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .cardPrice {
+    font-size: 1.4rem;
+  }
+}

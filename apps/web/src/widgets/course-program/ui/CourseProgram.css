@@ -1,0 +1,38 @@
+.widget-course-program {
+  padding: 100px 0;
+  background: var(--color-bg-page);
+}
+
+.widget-course-program__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.widget-course-program__title {
+  font-size: var(--text-4xl, 36px);
+  color: var(--color-text-primary);
+  margin-bottom: 64px;
+}
+
+.widget-course-program__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.widget-course-program__card {
+  display: flex;
+  flex-direction: column;
+}
+
+.widget-course-program__card h3 {
+  color: var(--color-teal-400);
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.widget-course-program__card p {
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}

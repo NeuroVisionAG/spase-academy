@@ -1,0 +1,98 @@
+.widget-group-hero {
+  padding: 120px 0 80px;
+  background: var(--color-bg-page);
+  position: relative;
+  overflow: hidden;
+}
+
+.widget-group-hero__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.widget-group-hero__kicker {
+  display: inline-block;
+  padding: 4px 16px;
+  border-radius: var(--radius-full);
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.widget-group-hero--kadety .widget-group-hero__kicker {
+  background: rgba(45,212,191,0.15);
+  color: var(--color-teal-400);
+}
+
+.widget-group-hero__title {
+  font-size: var(--text-5xl, 48px);
+  color: var(--color-text-primary);
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.widget-generate__desc {
+  font-size: 20px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.widget-group-hero__visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.widget-group-hero__bg-fx {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  z-index: 0;
+  opacity: 0.15;
+  filter: blur(80px);
+}
+
+.widget-group-hero--kadety .widget-group-hero__bg-fx { background: var(--color-teal-500); }
+.widget-group-hero--stajery .widget-group-hero__bg-fx { background: var(--color-purple-500); }
+.widget-group-hero--komanda .widget-group-hero__bg-fx { background: var(--color-orange-500); }
+
+.widget-group-hero__char {
+  position: relative;
+  z-index: 1;
+  max-width: 400px;
+  width: 100%;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+  transform: rotate(2deg);
+  transition: transform 0.3s ease;
+}
+
+.widget-group-hero__char:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.widget-group-hero__caption {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  z-index: 2;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  padding: 16px 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.widget-group-hero__caption strong { color: var(--color-text-primary); font-size: 18px; }
+.widget-group-hero__caption span { color: var(--color-text-tertiary); font-size: 14px; }

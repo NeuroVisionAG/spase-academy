@@ -1,0 +1,229 @@
+.widget-footer {
+  background: var(--color-bg-surface);
+  border-top: 1px solid var(--color-border-default);
+  padding: 64px 0 32px;
+  color: var(--color-text-secondary);
+}
+
+.widget-footer__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.footer-section {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.footer-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Секция 1: Основной макет (Левая и Правая колонки) */
+.footer-main-row {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+@media (min-width: 900px) {
+  .footer-main-row {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 64px;
+  }
+}
+
+.footer-left-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 48px; /* Расстояние между ссылками и юр.блоком */
+}
+
+.footer-right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 40px;
+}
+
+@media (min-width: 600px) {
+  .footer-nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .footer-nav-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Форма справа */
+.footer-form-col {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border-default);
+  padding: 24px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-form-col h4 {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  margin: 0;
+  font-size: 16px;
+}
+
+.footer-form-col p {
+  color: var(--color-text-tertiary);
+  font-size: 14px;
+  margin: 0 0 8px 0;
+}
+
+.footer-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-input,
+.footer-textarea {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+  padding: 12px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  outline: none;
+}
+
+.footer-input:focus,
+.footer-textarea:focus {
+  border-color: var(--color-primary);
+}
+
+.footer-textarea {
+  resize: none;
+}
+
+.footer-submit-btn {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.footer-submit-btn:hover {
+  background: #ea580c; /* Тот же оранжевый оттенок с hover, если var(--color-primary) - #f97316 */
+  filter: brightness(1.1);
+}
+
+.footer-nav-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-nav-col h4 {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  font-size: 16px;
+}
+
+.footer-nav-col a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.2s ease;
+}
+
+.footer-nav-col a:hover {
+  color: var(--color-primary);
+}
+
+/* Юридический блок (теперь внутри footer-left-column) */
+.footer-legal-block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  padding-top: 32px;
+  border-top: 1px solid var(--color-border-default);
+}
+
+.footer-legal-text p {
+  margin: 0 0 8px 0;
+}
+
+.footer-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-legal-links a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-legal-links a:hover {
+  filter: brightness(1.2);
+}
+
+@media (min-width: 768px) {
+  .footer-legal-block {
+    flex-direction: column; /* Раньше было row, но под ссылками лучше column из-за ширины */
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  
+  .footer-legal-links {
+    justify-content: flex-start;
+  }
+}
+
+/* Секция 3: Соцсети */
+.footer-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-social-links a {
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.2s;
+}
+
+.footer-social-links a:hover {
+  color: var(--color-primary);
+}

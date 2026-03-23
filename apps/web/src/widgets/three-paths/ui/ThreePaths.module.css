@@ -1,0 +1,218 @@
+.threePaths {
+  background-color: #0e1118;
+  padding: 100px 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.title {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #8b96b0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: rgba(30, 36, 50, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.cardTeal:hover {
+  border-color: rgba(45, 212, 191, 0.4);
+  box-shadow: 0 20px 50px rgba(45, 212, 191, 0.15);
+}
+
+.cardPurple:hover {
+  border-color: rgba(167, 139, 250, 0.4);
+  box-shadow: 0 20px 50px rgba(167, 139, 250, 0.15);
+}
+
+.cardOrange:hover {
+  border-color: rgba(249, 115, 22, 0.4);
+  box-shadow: 0 20px 50px rgba(249, 115, 22, 0.15);
+}
+
+.cardHeader {
+  position: relative;
+  z-index: 2;
+}
+
+.badgeTop {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #8b96b0;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.cardTitle {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px; /* Slight squircle */
+}
+.dotTeal { background: #2dd4bf; }
+.dotPurple { background: #a78bfa; }
+.dotOrange { background: #f97316; }
+
+.cardSubtitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #dde3f0;
+  margin-bottom: 24px;
+}
+
+.cardText {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #8b96b0;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 2;
+  flex: 1; /* Pushes content below it down */
+}
+
+.actionLink {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.card:hover .actionLink {
+  opacity: 0.8;
+}
+
+.textTeal { color: #2dd4bf; }
+.textPurple { color: #a78bfa; }
+.textOrange { color: #f97316; }
+
+/* Character placing */
+.characterWrapper {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 200px;
+  height: 200px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.characterImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+  border-top-left-radius: 40px;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card:hover .characterImg {
+  transform: translateY(-8px) scale(1.05); /* Float on hover */
+}
+
+/* Base glowing effect matching character's theme */
+.glowTeal, .glowPurple, .glowOrange {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.3;
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+.cardTeal:hover .glowTeal,
+.cardPurple:hover .glowPurple,
+.cardOrange:hover .glowOrange {
+  opacity: 0.6;
+}
+
+.glowTeal { background: #2dd4bf; }
+.glowPurple { background: #a78bfa; }
+.glowOrange { background: #f97316; }
+
+/* Responsoive */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .threePaths {
+    padding: 60px 20px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    min-height: auto;
+    padding-bottom: 120px; /* Space for the character img inside stacking layout */
+  }
+  .characterWrapper {
+    width: 160px;
+    height: 160px;
+    bottom: -10px;
+    right: -10px;
+  }
+}

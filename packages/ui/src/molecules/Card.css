@@ -1,0 +1,33 @@
+.ui-card {
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-default);
+  padding: 24px;
+  transition: all 0.2s ease-out;
+}
+
+.ui-card:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.ui-card--portal {
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  cursor: pointer;
+}
+.ui-card--portal:hover {
+  transform: translateY(-4px) scale(1.01);
+}
+
+.ui-card--pricing {
+  border-radius: var(--radius-xl);
+  padding: 32px;
+}
+
+/* Glow effects for portals and active pricing cards */
+.ui-card--glow-teal:hover { box-shadow: var(--shadow-glow-teal); border-color: var(--color-teal-500); }
+.ui-card--glow-purple:hover { box-shadow: var(--shadow-glow-purple); border-color: var(--color-purple-500); }
+.ui-card--glow-orange:hover { box-shadow: var(--shadow-glow-orange); border-color: var(--color-orange-500); }
+.ui-card--glow-navy:hover { box-shadow: var(--shadow-glow-navy); border-color: var(--color-navy-500); }
