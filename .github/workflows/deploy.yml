@@ -36,7 +36,7 @@ jobs:
       - name: 🚀 Deploy to Beget
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.BEGET_HOST }}
+          server: romanpoc.beget.tech
           username: ${{ secrets.BEGET_USERNAME }}
           password: ${{ secrets.BEGET_PASSWORD }}
           local-dir: ./apps/web/dist/
