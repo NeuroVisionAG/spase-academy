@@ -30,6 +30,9 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Verify build output
+        run: ls -R apps/web/dist/
+
       - name: 🚀 Deploy to Beget
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -37,5 +40,5 @@ jobs:
           username: ${{ secrets.BEGET_USERNAME }}
           password: ${{ secrets.BEGET_PASSWORD }}
           local-dir: ./apps/web/dist/
-          server-dir: romanpoc.beget.tech/public_html/
+          server-dir: public_html/
           protocol: ftp
