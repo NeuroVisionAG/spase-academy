@@ -1,10 +1,10 @@
-import React from 'react';
+import { useNavigate } from 'react-router';
 import styles from './ThreePaths.module.css';
 
 export const ThreePaths: React.FC = () => {
+  const navigate = useNavigate();
   const navigateTo = (path: string) => {
-    // Basic navigation or scrolling anchor as mentioned in design
-    window.location.hash = path;
+    navigate(`/${path}`);
   };
 
   return (
