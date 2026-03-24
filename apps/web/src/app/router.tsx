@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/kadety/:directionId',
-    element: <CoursePage groupId="kadety" />,
+    element: <CoursePage courseId="kadety-neyrokreativ" />,
   },
   {
     path: '/stajery/:directionId',

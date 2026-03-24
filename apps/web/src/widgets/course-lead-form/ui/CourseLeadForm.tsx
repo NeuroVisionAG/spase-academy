@@ -29,7 +29,7 @@ export const CourseLeadForm: React.FC = () => {
                 <Input 
                   placeholder="Как к вам обращаться?" 
                   value={name} 
-                  onChange={(e) => setName(e.target.value)} 
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)} 
                   required 
                 />
               </div>
@@ -39,7 +39,7 @@ export const CourseLeadForm: React.FC = () => {
                   placeholder="+7 (999) 000-00-00" 
                   type="tel" 
                   value={phone} 
-                  onChange={(e) => setPhone(e.target.value)} 
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)} 
                   required 
                 />
               </div>

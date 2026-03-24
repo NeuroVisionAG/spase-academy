@@ -5,8 +5,15 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "noEmit": true
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+    { "path": "./tsconfig.node.json" },
+    { "path": "../../packages/ui" },
+    { "path": "../../packages/shared" },
+    { "path": "../../packages/tokens" },
+    { "path": "../../packages/contracts" }
+  ]
 }

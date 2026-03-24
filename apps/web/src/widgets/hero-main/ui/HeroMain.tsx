@@ -1,9 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
 import styles from './HeroMain.module.css';
 
 export const HeroMain: React.FC = () => {
-  const navigate = useNavigate();
 
   const handleScroll = (id: string) => {
     const el = document.getElementById(id);
