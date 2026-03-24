@@ -8,6 +8,8 @@ export interface GroupInfo {
   name: string;
   ageRange: string;
   description: string;
+  h1: string;
+  subtitle: string;
 }
 
 export interface DirectionInfo {
@@ -23,4 +25,5 @@ export interface Character {
   name: string;
   role: string;
   image: string;
+  glowColor: string;
 }

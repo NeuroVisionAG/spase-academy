@@ -12,8 +12,8 @@ export const GroupPage: React.FC<{ groupId: string }> = ({ groupId }) => {
       <GroupHero groupId={groupId} />
       <GroupDirections groupId={groupId} />
       <GroupInfo groupId={groupId} />
-      <GroupSkills />
-      <CourseLeadForm />
+      <GroupSkills groupId={groupId} />
+      <CourseLeadForm groupId={groupId} />
     </PageLayout>
   );
 };

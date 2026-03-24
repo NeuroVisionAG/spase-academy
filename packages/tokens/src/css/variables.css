@@ -35,6 +35,18 @@
   --color-orange-100: #FEECC8;
   --color-orange-50:  #FFF7ED;
 
+  /* Primitive Colors - Purple */
+  --color-purple-900: #4c1d95;
+  --color-purple-800: #5b21b6;
+  --color-purple-700: #6d28d9;
+  --color-purple-600: #7c3aed;
+  --color-purple-500: #8b5cf6;
+  --color-purple-400: #a78bfa;
+  --color-purple-300: #c4b5fd;
+  --color-purple-200: #ddd6fe;
+  --color-purple-100: #ede9fe;
+  --color-purple-50:  #f5f3ff;
+
   /* Semantic Theme - Dark (Default) */
   --color-bg-page: var(--color-cosmos-700);
   --color-bg-surface: var(--color-cosmos-600);

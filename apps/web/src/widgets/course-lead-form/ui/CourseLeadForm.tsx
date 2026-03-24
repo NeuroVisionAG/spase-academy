@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router';
 import { Button, Input, Card } from '@space-academy/ui';
 import './CourseLeadForm.css';
 
-export const CourseLeadForm: React.FC = () => {
+export const CourseLeadForm: React.FC<{ groupId?: string }> = ({ groupId }) => {
+  const glowColor = groupId === 'kadety' ? 'teal' : groupId === 'komanda' ? 'orange' : 'purple';
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -18,7 +19,7 @@ export const CourseLeadForm: React.FC = () => {
   return (
     <section className="widget-lead-form">
       <div className="widget-lead-form__container">
-        <Card className="widget-lead-form__card" variant="portal" glowColor="purple">
+        <Card className="widget-lead-form__card" variant="portal" glowColor={glowColor as any}>
           <div className="widget-lead-form__content">
             <h2 className="widget-lead-form__title">Готов начать обучение?</h2>
             <p className="widget-lead-form__desc">Оставь заявку, и наш менеджер свяжется с тобой для подтверждения.</p>

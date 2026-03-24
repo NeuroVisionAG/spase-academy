@@ -17,11 +17,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/stajery',
-    element: <StubPage title="Стажёры (10-13 лет) - Скоро!" />,
+    element: <GroupPage groupId="stajery" />,
   },
   {
     path: '/komanda',
-    element: <StubPage title="Команда (14+ лет) - Скоро!" />,
+    element: <GroupPage groupId="komanda" />,
   },
   {
     path: '/kadety/:directionId',

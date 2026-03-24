@@ -40,12 +40,33 @@
 
 .widget-group-hero--kadety .widget-group-hero__kicker {
   background: rgba(45,212,191,0.15);
-  color: var(--color-teal-400);
+  color: var(--color-teal-500);
 }
 
-.widget-group-hero__title span {
-  color: #ffffff;
-  background: linear-gradient(90deg, var(--color-teal-400), var(--color-teal-500));
+.widget-group-hero--stajery .widget-group-hero__kicker {
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--color-purple-400);
+}
+
+.widget-group-hero--komanda .widget-group-hero__kicker {
+  background: rgba(251, 146, 60, 0.15);
+  color: var(--color-orange-400);
+}
+
+.widget-group-hero--kadety .widget-group-hero__title span {
+  background: linear-gradient(90deg, var(--color-teal-400), var(--color-teal-600));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.widget-group-hero--stajery .widget-group-hero__title span {
+  background: linear-gradient(90deg, var(--color-purple-300), var(--color-purple-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.widget-group-hero--komanda .widget-group-hero__title span {
+  background: linear-gradient(90deg, var(--color-orange-300), var(--color-orange-500));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -72,16 +93,24 @@
   font-size: 16px;
 }
 
-.widget-group-hero__btn--primary {
-  background: var(--color-teal-500);
-  color: #fff;
-  border: none;
+.widget-group-hero--kadety .widget-group-hero__btn--primary {
+  background: var(--color-teal-600);
   box-shadow: 0 4px 20px rgba(45, 212, 191, 0.3);
+}
+
+.widget-group-hero--stajery .widget-group-hero__btn--primary {
+  background: var(--color-purple-600);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+}
+
+.widget-group-hero--komanda .widget-group-hero__btn--primary {
+  background: var(--color-orange-600);
+  box-shadow: 0 4px 20px rgba(234, 88, 12, 0.3);
 }
 
 .widget-group-hero__btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(45, 212, 191, 0.5);
+  filter: brightness(1.1);
 }
 
 .widget-group-hero__btn--secondary {
@@ -124,17 +153,28 @@
   align-items: center;
 }
 
-.widget-group-hero__char {
-  max-width: 500px;
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 0 30px rgba(45, 212, 191, 0.2));
-  transition: filter 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+.widget-group-hero--kadety .widget-group-hero__char {
+  filter: drop-shadow(0 0 30px rgba(45, 212, 191, 0.25));
 }
 
-.widget-group-hero__char:hover {
-  transform: scale(1.05) translateY(-5px);
-  filter: drop-shadow(0 0 50px rgba(45, 212, 191, 0.6));
+.widget-group-hero--kadety .widget-group-hero__char:hover {
+  filter: drop-shadow(0 0 60px rgba(45, 212, 191, 0.7));
+}
+
+.widget-group-hero--stajery .widget-group-hero__char {
+  filter: drop-shadow(0 0 30px rgba(124, 58, 237, 0.25));
+}
+
+.widget-group-hero--stajery .widget-group-hero__char:hover {
+  filter: drop-shadow(0 0 60px rgba(124, 58, 237, 0.7));
+}
+
+.widget-group-hero--komanda .widget-group-hero__char {
+  filter: drop-shadow(0 0 30px rgba(234, 88, 12, 0.25));
+}
+
+.widget-group-hero--komanda .widget-group-hero__char:hover {
+  filter: drop-shadow(0 0 60px rgba(234, 88, 12, 0.7));
 }
 
 .widget-group-hero__caption {
