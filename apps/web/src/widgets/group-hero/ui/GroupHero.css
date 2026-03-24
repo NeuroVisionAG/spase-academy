@@ -35,6 +35,35 @@
   left: 24px;
   font-size: 14px;
   color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+}
+
+.widget-breadcrumb__link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.widget-breadcrumb__link:hover {
+  color: var(--color-teal-400);
+}
+
+.widget-group-hero--stajery .widget-breadcrumb__link:hover {
+  color: var(--color-purple-400);
+}
+
+.widget-group-hero--komanda .widget-breadcrumb__link:hover {
+  color: var(--color-orange-400);
+}
+
+.widget-breadcrumb__separator {
+  opacity: 0.5;
+}
+
+.widget-breadcrumb__current {
   opacity: 0.8;
 }
 

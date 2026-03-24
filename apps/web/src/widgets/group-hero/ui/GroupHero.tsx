@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router';
 import { GROUPS, CHARACTERS } from '@space-academy/shared';
 import './GroupHero.css';
 
@@ -13,7 +13,9 @@ export const GroupHero: React.FC<{ groupId: string }> = ({ groupId }) => {
     <section className={`widget-group-hero widget-group-hero--${groupId}`}>
       <div className="widget-group-hero__container">
         <div className="widget-breadcrumb">
-          Академия → {group.name} ({group.ageRange})
+          <Link to="/" className="widget-breadcrumb__link">Академия</Link>
+          <span className="widget-breadcrumb__separator">→</span>
+          <span className="widget-breadcrumb__current">{group.name} ({group.ageRange})</span>
         </div>
 
         <div className="widget-group-hero__content">
