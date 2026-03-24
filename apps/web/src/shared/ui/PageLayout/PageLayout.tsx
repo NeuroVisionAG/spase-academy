@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from '@/widgets/header';
 import { Footer } from '@/widgets/footer';
-import { ScrollRestoration } from 'react-router';
 import './PageLayout.css';
 
 export const PageLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -21,7 +20,6 @@ export const PageLayout: React.FC<{ children: React.ReactNode }> = ({ children }
 
   return (
     <div className="page-layout">
-      <ScrollRestoration />
       <Header />
       <div className="page-layout__content">
         {children}
