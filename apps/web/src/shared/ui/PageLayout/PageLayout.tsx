@@ -1,15 +1,11 @@
+import React, { useState, useEffect } from 'react';
 import { Header } from '@/widgets/header';
 import { Footer } from '@/widgets/footer';
-import { useLocation } from 'react-router';
+import { ScrollRestoration } from 'react-router';
 import './PageLayout.css';
 
 export const PageLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +21,7 @@ export const PageLayout: React.FC<{ children: React.ReactNode }> = ({ children }
 
   return (
     <div className="page-layout">
+      <ScrollRestoration />
       <Header />
       <div className="page-layout__content">
         {children}
