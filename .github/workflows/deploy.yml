@@ -40,5 +40,5 @@ jobs:
           username: ${{ secrets.BEGET_USERNAME }}
           password: ${{ secrets.BEGET_PASSWORD }}
           local-dir: ./apps/web/dist/
-          server-dir: public_html/
+          server-dir: romanpoc.beget.tech/public_html/
           protocol: ftp
