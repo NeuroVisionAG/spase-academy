@@ -66,7 +66,7 @@ const plans = [
 
 export const PricingOverview: React.FC = () => {
   return (
-    <section className={styles.pricingBlock}>
+    <section id="pricing" className={styles.pricingBlock}>
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>Начни так, как удобно тебе</h2>

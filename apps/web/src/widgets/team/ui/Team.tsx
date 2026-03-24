@@ -54,7 +54,7 @@ const teamMembers = [
 
 export const Team: React.FC = () => {
   return (
-    <section className={styles.teamBlock}>
+    <section id="team" className={styles.teamBlock}>
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>Познакомьтесь с командованием Академии</h2>

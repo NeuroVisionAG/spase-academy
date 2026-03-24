@@ -14,9 +14,9 @@ export const Footer: React.FC = () => {
             <div className="footer-nav-grid">
               <div className="footer-nav-col">
                 <h4>Академия</h4>
-                <Link to="/about">О нас</Link>
                 <Link to="/method">Наша методика</Link>
-                <Link to="/team">Команда</Link>
+                <Link to="/#team">Командование</Link>
+                <Link to="/#pricing">Тарифы</Link>
                 <Link to="/contacts">Контакты</Link>
               </div>
               <div className="footer-nav-col">

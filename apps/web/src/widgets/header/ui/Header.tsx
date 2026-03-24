@@ -69,9 +69,8 @@ export const Header: React.FC = () => {
             )}
           </div>
           <Link to="/courses">Направления</Link>
-          <Link to="/komanda">Команда</Link>
-          <Link to="/about-us">О нас</Link>
-          <Link to="/pricing">Цены</Link>
+          <Link to="/#team">Командование</Link>
+          <Link to="/#pricing">Тарифы</Link>
         </nav>
 
         {/* Desktop Actions & Contacts */}
@@ -117,9 +116,8 @@ export const Header: React.FC = () => {
                 <Link to="/komanda" onClick={() => setIsMobileMenuOpen(false)}>Команда 14+</Link>
              </div>
              <Link to="/courses" onClick={() => setIsMobileMenuOpen(false)}>Направления</Link>
-             <Link to="/komanda" onClick={() => setIsMobileMenuOpen(false)}>Команда</Link>
-             <Link to="/about-us" onClick={() => setIsMobileMenuOpen(false)}>О нас</Link>
-             <Link to="/pricing" onClick={() => setIsMobileMenuOpen(false)}>Цены</Link>
+             <Link to="/#team" onClick={() => setIsMobileMenuOpen(false)}>Командование</Link>
+             <Link to="/#pricing" onClick={() => setIsMobileMenuOpen(false)}>Тарифы</Link>
           </nav>
           
           <div className="mobile-contacts">
