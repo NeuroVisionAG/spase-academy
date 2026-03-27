@@ -1,57 +1,138 @@
 .widget-group-skills {
   padding: 100px 0;
-  background: var(--color-bg-elevated);
+  background-color: var(--bg);
+  position: relative;
+  z-index: 1;
 }
 
 .widget-group-skills__container {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
+}
+
+.widget-group-skills__header {
+  text-align: center;
+  margin-bottom: 60px;
 }
 
 .widget-group-skills__title {
-  text-align: center;
-  font-size: var(--text-4xl, 36px);
-  margin-bottom: 64px;
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.3;
 }
 
-.widget-group-skills__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 32px;
+.widget-group-skills__main-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.widget-group-skills__item {
-  position: relative;
-  padding: 32px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-lg);
+.widget-group-skills__card {
+  background: rgba(30, 36, 50, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 40px;
   transition: all 0.3s ease;
 }
 
-.widget-group-skills__item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--color-teal-500);
-  transform: translateY(-5px);
+.widget-group-skills__card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-4px);
+  background: rgba(30, 36, 50, 0.5);
 }
 
-.widget-group-skills__num {
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--color-teal-500);
+.widget-group-skills__card-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #8b96b0;
   margin-bottom: 24px;
-  opacity: 0.6;
+  text-transform: uppercase;
+  display: block;
 }
 
-.widget-group-skills__name {
-  font-size: 20px;
-  margin-bottom: 12px;
-  color: var(--color-text-primary);
+.widget-group-skills__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 32px;
 }
 
-.widget-group-skills__desc {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--color-text-tertiary);
+.widget-group-skills__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.widget-group-skills__check-svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: #2dd4bf; /* По умолчанию бирюзовый */
+}
+
+.widget-group-skills__text {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #dde3f0;
+  margin: 0;
+}
+
+/* Настройки для специфических карточек */
+.widget-group-skills__card--common {
+  border-left: 4px solid #2dd4bf;
+}
+.widget-group-skills__card--common:hover {
+  border-color: rgba(45, 212, 191, 0.4);
+  box-shadow: 0 10px 40px rgba(45, 212, 191, 0.15);
+}
+
+.widget-group-skills__sub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.widget-group-skills__card--purple {
+  border-left: 4px solid #a78bfa;
+}
+.widget-group-skills__card--purple .widget-group-skills__check-svg {
+  color: #a78bfa;
+}
+.widget-group-skills__card--purple .widget-group-skills__card-label {
+  color: #a78bfa;
+}
+.widget-group-skills__card--purple:hover {
+  border-color: rgba(167, 139, 250, 0.4);
+  box-shadow: 0 10px 40px rgba(167, 139, 250, 0.15);
+}
+
+.widget-group-skills__card--blue {
+  border-left: 4px solid #38bdf8;
+}
+.widget-group-skills__card--blue .widget-group-skills__check-svg {
+  color: #38bdf8;
+}
+.widget-group-skills__card--blue .widget-group-skills__card-label {
+  color: #38bdf8;
+}
+
+.widget-group-skills__card--blue:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 10px 40px rgba(56, 189, 248, 0.15);
+}
+
+@media (max-width: 900px) {
+  .widget-group-skills__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .widget-group-skills { padding: 60px 0; }
+  .widget-group-skills__sub-grid { grid-template-columns: 1fr; }
+  .widget-group-skills__card { padding: 30px 24px; }
 }

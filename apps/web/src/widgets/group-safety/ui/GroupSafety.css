@@ -1,0 +1,126 @@
+.widget-group-safety {
+  padding: 100px 0;
+  background-color: var(--bg);
+  position: relative;
+  overflow: hidden;
+  --accent-color: var(--teal); /* Default */
+}
+
+/* Theme Overrides */
+.widget-group-safety--kadety { --accent-color: #2dd4bf; }
+.widget-group-safety--stajery { --accent-color: #a78bfa; }
+.widget-group-safety--komanda { --accent-color: #fb923c; }
+
+.widget-group-safety__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.widget-group-safety__header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.widget-group-safety__title {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.widget-group-safety__subtitle {
+  font-size: 1.1rem;
+  color: #8b96b0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.widget-group-safety__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.widget-group-safety__card {
+  background: rgba(30, 36, 50, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 32px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.widget-group-safety__card:hover {
+  transform: translateY(-8px);
+  background: rgba(30, 36, 50, 0.6);
+  border-color: rgba(var(--accent-color), 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+              0 0 20px rgba(var(--accent-color), 0.15);
+}
+
+/* Using hex for box-shadow since var with opacity in rgba is tricky without rgb components */
+.widget-group-safety--kadety .widget-group-safety__card:hover { border-color: rgba(45, 212, 191, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(45, 212, 191, 0.2); }
+.widget-group-safety--stajery .widget-group-safety__card:hover { border-color: rgba(167, 139, 250, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(167, 139, 250, 0.2); }
+.widget-group-safety--komanda .widget-group-safety__card:hover { border-color: rgba(251, 146, 60, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(251, 146, 60, 0.2); }
+
+.widget-group-safety__icon-wrapper {
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.widget-group-safety__card:hover .widget-group-safety__icon-wrapper {
+  transform: scale(1.1) rotate(5deg);
+  background: var(--accent-color);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 15px var(--accent-color);
+}
+
+.widget-group-safety__point-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.widget-group-safety__point-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+  .widget-group-safety__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .widget-group-safety {
+    padding: 60px 0;
+  }
+  
+  .widget-group-safety__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .widget-group-safety__card {
+    padding: 24px;
+  }
+}

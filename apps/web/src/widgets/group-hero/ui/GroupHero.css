@@ -24,9 +24,56 @@
   font-weight: 500;
   font-size: 13px;
   color: #64748b;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.widget-group-hero__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.widget-group-hero__nav-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(4px);
+}
+
+/* Theme Colors & Glow */
+.widget-group-hero--kadety .widget-group-hero__nav-pill:hover {
+  background: rgba(45, 212, 191, 0.1);
+  border-color: var(--color-teal-500);
+  color: var(--color-teal-400);
+  box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
+  transform: translateY(-2px);
+}
+
+.widget-group-hero--stajery .widget-group-hero__nav-pill:hover {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: var(--color-purple-400);
+  color: var(--color-purple-300);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.widget-group-hero--komanda .widget-group-hero__nav-pill:hover {
+  background: rgba(251, 146, 60, 0.1);
+  border-color: var(--color-orange-400);
+  color: var(--color-orange-300);
+  box-shadow: 0 0 15px rgba(251, 146, 60, 0.3);
+  transform: translateY(-2px);
 }
 
 .widget-breadcrumb {
@@ -85,18 +132,21 @@
 .widget-group-hero--kadety .widget-group-hero__title span {
   background: linear-gradient(90deg, var(--color-teal-400), var(--color-teal-600));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .widget-group-hero--stajery .widget-group-hero__title span {
   background: linear-gradient(90deg, var(--color-purple-300), var(--color-purple-500));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .widget-group-hero--komanda .widget-group-hero__title span {
   background: linear-gradient(90deg, var(--color-orange-300), var(--color-orange-500));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

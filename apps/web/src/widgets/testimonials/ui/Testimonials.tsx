@@ -93,8 +93,28 @@ const mockChats = [
   }
 ];
 
-export const Testimonials: React.FC = () => {
+interface TestimonialsProps {
+  groupId?: string;
+}
+
+const groupMap: Record<string, string> = {
+  kadety: 'Кадеты',
+  stajery: 'Стажёры',
+  komanda: 'Команда'
+};
+
+export const Testimonials: React.FC<TestimonialsProps> = ({ groupId }) => {
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  const filteredReviews = groupId 
+    ? reviews.filter(r => r.group === groupMap[groupId]) 
+    : reviews;
+
+  // Simple logic to show different chats for different groups if needed
+  // For now just filtering or showing all
+  const filteredChats = groupId 
+    ? (groupId === 'kadety' ? [mockChats[1]] : [mockChats[0]]) 
+    : mockChats;
 
   const scrollLeft = () => {
     if (carouselRef.current) {
@@ -108,14 +128,20 @@ export const Testimonials: React.FC = () => {
     }
   };
 
+  if (filteredReviews.length === 0) return null;
+
   return (
-    <section className={styles.wrapper}>
+    <section id="reviews" className={styles.wrapper}>
       <div className={styles.container}>
         
         <div className={styles.header}>
-          <h2 className={styles.title}>Что говорят родители и дети</h2>
+          <h2 className={styles.title}>
+            {groupId ? `Что говорят родители ${groupMap[groupId]}` : 'Что говорят родители и дети'}
+          </h2>
           <p className={styles.description}>
-            Более 1000 выпускников уже создали свои проекты. Почитайте, как меняется отношение детей к технологиям.
+            {groupId 
+              ? `Посмотрите отзывы родителей, чьи дети уже учатся в группе «${groupMap[groupId]}».`
+              : 'Более 1000 выпускников уже создали свои проекты. Почитайте, как меняется отношение детей к технологиям.'}
           </p>
         </div>
 
@@ -126,7 +152,7 @@ export const Testimonials: React.FC = () => {
           </button>
           
           <div className={styles.carousel} ref={carouselRef}>
-            {reviews.map((review) => (
+            {filteredReviews.map((review) => (
               <div key={review.id} className={styles.card}>
                 <div className={styles.cardHeader}>
                   <div className={styles.avatar} style={{ backgroundColor: review.avatarBg }}>
@@ -159,7 +185,7 @@ export const Testimonials: React.FC = () => {
         <div className={styles.chatsSection}>
           <h3 className={styles.chatsTitle}>Прямая связь и живые эмоции</h3>
           <div className={styles.chatsGrid}>
-            {mockChats.map((chat) => (
+            {filteredChats.map((chat) => (
               <div key={chat.id} className={styles.chatWindow}>
                 <div className={styles.chatHeader}>
                   <div className={styles.chatAvatar}>А</div>

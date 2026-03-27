@@ -1,0 +1,183 @@
+.widget-group-pricing {
+  background-color: #0e1118;
+  padding: 100px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.widget-group-pricing__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.widget-group-pricing__header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.widget-group-pricing__title {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: clamp(2rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.widget-group-pricing__description {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #8b96b0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.widget-group-pricing__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.widget-group-pricing__card {
+  background: rgba(30, 36, 50, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 40px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.widget-group-pricing__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.widget-group-pricing__card--free {
+  background: linear-gradient(160deg, rgba(16, 185, 129, 0.15) 0%, rgba(30, 36, 50, 0.4) 100%);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.widget-group-pricing__card--free:hover {
+  border-color: rgba(16, 185, 129, 0.7);
+  box-shadow: 0 15px 35px rgba(16, 185, 129, 0.15);
+}
+
+.widget-group-pricing__card--popular {
+  border-color: #06b6d4; /* Teal */
+}
+
+.widget-group-pricing__card--popular:hover {
+  border-color: #06b6d4;
+  box-shadow: 0 15px 35px rgba(6, 182, 212, 0.15);
+}
+
+.widget-group-pricing__badge {
+  position: absolute;
+  top: 0;
+  right: 24px;
+  background: #06b6d4;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.widget-group-pricing__icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #a78bfa; /* Generic nice purple */
+  transition: all 0.3s ease;
+}
+
+.widget-group-pricing__card:hover .widget-group-pricing__icon-wrapper {
+  transform: scale(1.1);
+}
+
+.widget-group-pricing__card--free .widget-group-pricing__icon-wrapper {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.widget-group-pricing__card--popular .widget-group-pricing__icon-wrapper {
+  background: rgba(6, 182, 212, 0.15);
+  color: #06b6d4;
+}
+
+.widget-group-pricing__card-title {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.widget-group-pricing__card-price {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #a78bfa;
+  margin-bottom: 20px;
+}
+
+.widget-group-pricing__card--free .widget-group-pricing__card-price {
+  color: #10b981;
+}
+
+.widget-group-pricing__card--popular .widget-group-pricing__card-price {
+  color: #06b6d4;
+}
+
+.widget-group-pricing__card-desc {
+  font-size: 0.95rem;
+  color: #dde3f0;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.widget-group-pricing__note {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #8b96b0;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+  .widget-group-pricing__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .widget-group-pricing {
+    padding: 60px 0;
+  }
+  .widget-group-pricing__grid {
+    grid-template-columns: 1fr;
+  }
+  .widget-group-pricing__card-price {
+    font-size: 1.4rem;
+  }
+}

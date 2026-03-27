@@ -1,0 +1,314 @@
+.widget-group-teacher {
+  padding: 100px 0;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+.widget-group-teacher__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.widget-group-teacher__main-title {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 60px;
+  text-align: left;
+}
+
+.widget-group-teacher__grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* --- FLIP CARD --- */
+.teacher-flip-card {
+  perspective: 1500px;
+  height: 560px;
+  width: 100%;
+}
+
+.teacher-flip-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.teacher-flip-card:hover .teacher-flip-card__inner {
+  transform: rotateY(180deg);
+}
+
+.teacher-flip-card__front,
+.teacher-flip-card__back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 32px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Front Side */
+.teacher-flip-card__front {
+  background: #1e2432;
+  display: flex;
+  flex-direction: column;
+}
+
+.teacher-flip-card__image-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.teacher-flip-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.teacher-flip-card:hover .teacher-flip-card__image {
+  transform: scale(1.05);
+}
+
+.teacher-flip-card__image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(30, 36, 50, 0.9));
+}
+
+.teacher-flip-card__front-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px;
+}
+
+.teacher-flip-card__name {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.teacher-flip-card__role {
+  font-size: 0.9rem;
+  color: var(--teal);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.teacher-flip-card__hint {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
+
+/* Back Side */
+.teacher-flip-card__back {
+  background: linear-gradient(135deg, #1e2432 0%, #151a26 100%);
+  transform: rotateY(180deg);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.teacher-flip-card__back-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 1.25rem;
+  color: var(--teal);
+  margin-bottom: 24px;
+}
+
+.teacher-flip-card__back-bio {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-bottom: 32px;
+}
+
+.teacher-flip-card__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.teacher-flip-card__stat {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.teacher-flip-card__stat-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  background: rgba(45, 212, 191, 0.1);
+  border: 1px solid rgba(45, 212, 191, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal);
+}
+
+.teacher-flip-card__stat-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.teacher-flip-card__stat-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+
+.teacher-flip-card__stat-value {
+  font-size: 0.9rem;
+  color: #f1f5f9;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* --- INFO COLUMN --- */
+.widget-group-teacher__info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+}
+
+.teacher-quote-card {
+  background: rgba(45, 212, 191, 0.05);
+  border: 1px solid rgba(45, 212, 191, 0.1);
+  border-radius: 32px;
+  padding: 40px;
+  position: relative;
+}
+
+.teacher-quote-card__icon {
+  position: absolute;
+  top: 10px;
+  left: 30px;
+  font-size: 80px;
+  font-family: serif;
+  color: rgba(45, 212, 191, 0.1);
+  line-height: 1;
+}
+
+.teacher-quote-card__text {
+  font-size: 1.35rem;
+  line-height: 1.6;
+  color: #f8fafc;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+.teacher-video-block {
+  flex: 1;
+  background: #1e2432;
+  border-radius: 32px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  min-height: 250px;
+  position: relative;
+}
+
+.teacher-video-preview {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(45deg, #1e2432, #2d3648);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.teacher-video-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.teacher-video-play-btn {
+  width: 80px;
+  height: 80px;
+  background: var(--teal);
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px rgba(45, 212, 191, 0.3);
+}
+
+.teacher-video-play-btn:hover {
+  transform: scale(1.1);
+  background: #27c3af;
+  box-shadow: 0 0 40px rgba(45, 212, 191, 0.4);
+}
+
+.play-triangle {
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 20px solid #fff;
+  margin-left: 6px;
+}
+
+.teacher-video-caption {
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+  .widget-group-teacher__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .teacher-flip-card {
+    height: 500px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .widget-group-teacher { padding: 60px 0; }
+  .widget-group-teacher__main-title { text-align: center; }
+  .teacher-quote-card { padding: 30px; }
+  .teacher-quote-card__text { font-size: 1.1rem; }
+}
